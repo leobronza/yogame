@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\RandomEdgePerTime.cs" />
      <Compile Include="Assets\Scripts\RandomPositionPerTime.cs" />
+     <Compile Include="Assets\Scripts\testenavmeshagent.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Windows/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
