@@ -1,11 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\testenavmeshagent.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\HitKill\Assets\touchTest.cs">
     <Files>
-      <File FileName="Assets\Scripts\NewBehaviourScript.cs" Line="10" Column="2" />
-      <File FileName="Assets\Scripts\RandomPositionPerTime.cs" Line="22" Column="4" />
-      <File FileName="Assets\Scripts\RandomEdgePerTime.cs" Line="5" Column="15" />
-      <File FileName="Assets\Scripts\testenavmeshagent.cs" Line="7" Column="14" />
+      <File FileName="..\..\..\HitKill\Assets\touchTest.cs" Line="24" Column="32" />
+      <File FileName="Assets\Scripts\killMonster.cs" Line="9" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
