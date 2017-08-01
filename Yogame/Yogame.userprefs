@@ -1,11 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\RandomPosition.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\hitKill.cs">
     <Files>
-      <File FileName="Assets\Scripts\RandomPosition.cs" Line="13" Column="32" />
-      <File FileName="Assets\Scripts\RandomScreenSide.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\hitKill.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\testenavmeshagent.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\hitKill.cs" Line="41" Column="57" />
+      <File FileName="..\..\..\HitKill\Assets\touchTest.cs" Line="9" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
