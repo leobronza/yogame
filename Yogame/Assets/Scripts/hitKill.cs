@@ -21,18 +21,21 @@ public class hitKill : MonoBehaviour {
 					//Debug. Ray (ray.origin, ray.direction * 20, Color.red);
 				if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
 					//Debug.Log ("Hit Something");
-					Destroy (hit.transform.gameObject);
-					score += points;
+					if (hit.transform.gameObject.GetComponent <MinionHealth> ().damage (25f)) {
+						
+						score += points;
+					}
 					//Debug.Log (hit.transform);
 				}	
 			}
-		}	
+		}else	
 
 	if(Input.GetMouseButtonDown(0)){
 		ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
-				Destroy (hit.transform.gameObject);
-				score += points;
+				if (hit.transform.gameObject.GetComponent <MinionHealth> ().damage (25f)) {
+					score += points;
+				}
 			}
 		}
 	}

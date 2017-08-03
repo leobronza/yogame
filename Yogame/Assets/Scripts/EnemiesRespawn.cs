@@ -6,7 +6,7 @@ public class EnemiesRespawn : MonoBehaviour {
 
 	public List<GameObject> enemies;
 	public GameObject enemy;
-	int amountEnemies = 25;
+	int amountEnemies = 4;
 
 	void Start () {
 		enemies = new List<GameObject>();

@@ -19,18 +19,20 @@ public class MinionMoviment : MonoBehaviour {
 	}
 
 	void Update () {
-			if (agent.enabled == true && agent.pathPending == false && agent.remainingDistance <= 1.3f &&  agent.remainingDistance != 0){
+			if (agent.enabled == true && agent.pathPending == false && agent.remainingDistance <= 1.6f &&  agent.remainingDistance != 0){
 				agent.enabled = false;
 				obstacle.enabled = true;
 				obstacle.carving = true;
-				if (Vector3.Distance (this.transform.position, target.transform.position) <= 1.3f) {
+				if (Vector3.Distance (this.transform.position, target.transform.position) <= 1.6f) {
 					attacking = true;
-					damage ();//Time
+				InvokeRepeating ("attack", 0, 1);
 				}
+
 			}
 			if (target == null) {
 				updateTarget ();
 				attacking = false;
+			CancelInvoke ();
 			}
 
 	}
@@ -62,9 +64,7 @@ public class MinionMoviment : MonoBehaviour {
 			updateTarget ();
 		}
 	}
-
-	void damage(){
-		//vida abaixa
+	private void attack(){
+		target.GetComponent <MinionHealth> ().damage (2f);
 	}
-
 }
