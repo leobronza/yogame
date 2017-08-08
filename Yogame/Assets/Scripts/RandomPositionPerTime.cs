@@ -3,22 +3,20 @@
 public class RandomPositionPerTeam{
 	// 0 => FriendTeam
 	// 1 => EnemyTeam
-	public Vector3 getRandomPositionPerTeam(int team, float sizeToRide){
-		float backGroundLocalScaleX = GameObject.FindGameObjectWithTag("BackGround").transform.localScale.x/2;
-		float backGroundLocalScaleY = GameObject.FindGameObjectWithTag("BackGround").transform.localScale.y/2;
+	public Vector3 getRandomPositionPerTeam(int team, float borderSize, string backGroundTag, float heightFloor){
+		float backGroundLocalScaleX = GameObject.FindGameObjectWithTag(backGroundTag).transform.localScale.x/2*10;
+		float backGroundLocalScaleZ = GameObject.FindGameObjectWithTag(backGroundTag).transform.localScale.z/2*10;
 
 		if (team == 0) {
 			if (new RandomEdgePerTeam ().getRandomEdgePerTeam () == 0)
-				return new Vector3 (-backGroundLocalScaleX-sizeToRide, 0 ,Random.Range(0, backGroundLocalScaleY));
-			return new Vector3 (Random.Range(-backGroundLocalScaleX, backGroundLocalScaleX),0, backGroundLocalScaleY+sizeToRide); 
+				return new Vector3 (-backGroundLocalScaleX-borderSize, heightFloor ,Random.Range(0, backGroundLocalScaleZ));
+			return new Vector3 (Random.Range(-backGroundLocalScaleX, backGroundLocalScaleX), heightFloor , backGroundLocalScaleZ+borderSize); 
 
 		} else {
 			if (new RandomEdgePerTeam ().getRandomEdgePerTeam () == 0)
 				return new Vector3 (
-					Random.Range (-backGroundLocalScaleX, backGroundLocalScaleX), 0,
-					-backGroundLocalScaleY-sizeToRide
-				);
-			return new Vector3 (backGroundLocalScaleX+sizeToRide,0, Random.Range (-backGroundLocalScaleY, 0));
+					Random.Range (-backGroundLocalScaleX, backGroundLocalScaleX), heightFloor ,-backGroundLocalScaleZ-borderSize);
+			return new Vector3 (backGroundLocalScaleX+borderSize, heightFloor , Random.Range (-backGroundLocalScaleZ, 0));
 		}
 			
 	}
