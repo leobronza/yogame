@@ -71,9 +71,9 @@ public class MinionMoviment : MonoBehaviour {
 					//Quaternion toRotation = Quaternion.Euler(Vector3.Lerp(transform.forward, direction, 0.5f * Time.time));
 					//rigidBody.MoveRotation(rigidBody.rotation * toRotation);
 
-					//rigidBody.MovePosition (this.transform.position + new Vector3 (this.transform.forward.x, 0, this.transform.forward.z) * Time.deltaTime * moveSpeed);
+					rigidBody.MovePosition (this.transform.position + new Vector3 (this.transform.forward.x, 0, this.transform.forward.z) * Time.deltaTime * moveSpeed);
 				} else {
-					//transform.LookAt (new Vector3 (0f, 0.02f, 0f));
+					transform.LookAt (new Vector3 (0f, 0.02f, 0f));
 				}
 			} 
 

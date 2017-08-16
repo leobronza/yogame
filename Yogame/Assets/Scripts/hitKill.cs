@@ -9,7 +9,14 @@ public class hitKill : MonoBehaviour {
 	// Use this for initialization
 	public int score;
 	public int points = 1;
+	public GameObject modelKnife;
+	private GameObject knife;
+	public GameObject yoda;
+	private GameObject[] arrayTarget;
+	public GameObject[] arrayKnife;
 	void Start () {
+		arrayKnife = new GameObject[5];
+		arrayTarget = new GameObject[5];
 
 	}
 
@@ -21,10 +28,18 @@ public class hitKill : MonoBehaviour {
 					//Debug. Ray (ray.origin, ray.direction * 20, Color.red);
 				if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
 					//Debug.Log ("Hit Something");
-					if (hit.transform.gameObject.GetComponent <MinionHealth> ().damage (25f)) {
-						
-						score += points;
+					for (int i = 0; i < arrayKnife.Length ; i++) {
+						if (arrayKnife[i] == null) {
+							arrayKnife[i] = Instantiate (modelKnife, new Vector3(yoda.transform.position.x,yoda.transform.position.y + 0.5f,yoda.transform.position.z), Quaternion.identity);
+							arrayTarget[i] = hit.transform.gameObject;
+							arrayKnife[i].transform.LookAt (arrayTarget[i].transform.position);
+							i=5;
+						}
 					}
+
+				
+
+
 					//Debug.Log (hit.transform);
 				}	
 			}
@@ -35,6 +50,20 @@ public class hitKill : MonoBehaviour {
 			if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
 				if (hit.transform.gameObject.GetComponent <MinionHealth> ().damage (25f)) {
 					score += points;
+				}
+			}
+		}
+		for(int i = 0; i <  arrayKnife.Length ; i++){
+			if (arrayKnife[i] != null) {
+				if ( arrayTarget [i] == null || Vector3.SqrMagnitude (arrayKnife [i].transform.position - arrayTarget [i].transform.position) < 1f) {
+					if ( arrayTarget [i] != null && arrayTarget [i].GetComponent <MinionHealth> ().damage (25f)) {
+						score += points;
+					}
+					Destroy (arrayKnife[i]);
+					arrayTarget [i] = null;
+				} else  {
+					arrayKnife [i].transform.LookAt (arrayTarget [i].transform.position);
+					arrayKnife [i].transform.position += new Vector3 (arrayKnife [i].transform.forward.x, 0, arrayKnife [i].transform.forward.z) * Time.deltaTime * 10f;
 				}
 			}
 		}
