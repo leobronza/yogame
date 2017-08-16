@@ -4,17 +4,23 @@
     <Files>
       <File FileName="Assets\Scripts\hitKill.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\MinionHealth.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MinionMoviment.cs" Line="36" Column="5" />
       <File FileName="Assets\Scripts\RandomPosition.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Respawn.cs" Line="9" Column="9" />
+      <File FileName="Assets\Scripts\Respawn.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\RandomPositionPerTime.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\RandomEdgePerTime.cs" Line="1" Column="1" />
+      <File FileName="..\..\unity mobile teste\teste mobile\Assets\teste1.cs" Line="1" Column="1" />
+      <File FileName="..\..\unity mobile teste\teste mobile\Assets\teste4.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MinionMoviment.cs" Line="64" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="D:\Windows\Yogame\Yogame\Assets\Scripts\MinionMoviment.cs" line="30" column="5" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="Assets\Scripts\MinionMoviment.cs" line="78" offsetX="284" offsetY="1232" expression="ang" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
   <DisabledProjects>
     <String>Assembly-CSharp.csproj</String>
   </DisabledProjects>

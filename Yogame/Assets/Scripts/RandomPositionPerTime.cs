@@ -9,14 +9,13 @@ public class RandomPositionPerTeam{
 
 		if (team == 0) {
 			if (new RandomEdgePerTeam ().getRandomEdgePerTeam () == 0)
-				return new Vector3 (-backGroundLocalScaleX-borderSize, heightFloor ,Random.Range(0, backGroundLocalScaleZ));
-			return new Vector3 (Random.Range(-backGroundLocalScaleX, backGroundLocalScaleX), heightFloor , backGroundLocalScaleZ+borderSize); 
+				return new Vector3 (-backGroundLocalScaleX+borderSize, heightFloor ,Random.Range(0, 2.0f));
+			return new Vector3 (Random.Range(-0.03f, backGroundLocalScaleX), heightFloor , backGroundLocalScaleZ-borderSize); 
 
 		} else {
 			if (new RandomEdgePerTeam ().getRandomEdgePerTeam () == 0)
-				return new Vector3 (
-					Random.Range (-backGroundLocalScaleX, backGroundLocalScaleX), heightFloor ,-backGroundLocalScaleZ-borderSize);
-			return new Vector3 (backGroundLocalScaleX+borderSize, heightFloor , Random.Range (-backGroundLocalScaleZ, 0));
+				return new Vector3 (Random.Range (-backGroundLocalScaleX, backGroundLocalScaleX), heightFloor ,-backGroundLocalScaleZ+borderSize);
+			return new Vector3 (backGroundLocalScaleX-borderSize, heightFloor , Random.Range (-backGroundLocalScaleZ, 0));
 		}
 			
 	}
