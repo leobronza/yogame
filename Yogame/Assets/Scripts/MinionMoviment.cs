@@ -61,6 +61,11 @@ public class MinionMoviment : MonoBehaviour {
 					for (int i = 0; i < path.corners.Length - 1; i++) {
 						Debug.DrawLine (path.corners [i], path.corners [i + 1], Color.red);	
 					}
+					//Vector3 x1 = path.corners [1] - path.corners [0];
+					//Vector3 x2 = x1.normalized;
+					//print (path.corners [0] + new Vector3 (x2.x, x2.y, x2.z));
+					//Debug.DrawLine (path.corners [0] + new Vector3(x2.x, x2.y, x2.z) * 0.03f, Vector3.up, Color.blue);
+					//transform.LookAt (path.corners [0] + new Vector3 (x2.x, x2.y, x2.z) * 0.03f);
 					transform.LookAt (new Vector3 (path.corners [1].x, targetVector3.y, path.corners [1].z));
 					//Vector3 direction = new Vector3 (path.corners [1].x, targetVector3.y, path.corners [1].z) - this.transform.position;
 					///Debug.DrawRay (direction , Vector3.up, Color.yellow, 0.0f);
@@ -121,7 +126,7 @@ public class MinionMoviment : MonoBehaviour {
 				conectionPoint.z = targets [i].transform.position.z + (targets [i].name.Equals ("Nexus") ? 1.4f :0.78f) * Mathf.Cos (ang * Mathf.Deg2Rad);
 
 				if (UnityEngine.AI.NavMesh.SamplePosition (conectionPoint, out hit, 0.07f, UnityEngine.AI.NavMesh.AllAreas)) {
-					Debug.DrawRay (hit.position, Vector3.up, Color.blue, 0.0f);
+					//Debug.DrawRay (hit.position, Vector3.up, Color.blue, 0.0f);
 					float distance = Vector3.Distance (this.transform.position, hit.position);
 					if (target == null) {
 						target = targets [i];

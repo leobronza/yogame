@@ -6,7 +6,6 @@ public class hitKill : MonoBehaviour {
 
 	Ray ray;
 	RaycastHit hit;
-	// Use this for initialization
 	public int score;
 	public int points = 1;
 	public GameObject modelKnife;
@@ -14,10 +13,12 @@ public class hitKill : MonoBehaviour {
 	public GameObject yoda;
 	private GameObject[] arrayTarget;
 	public GameObject[] arrayKnife;
+	private GameObject progressionController;
+
 	void Start () {
 		arrayKnife = new GameObject[5];
 		arrayTarget = new GameObject[5];
-
+		progressionController = GameObject.FindGameObjectWithTag ("ProgressionController");
 	}
 
 	// Update is called once per frame
@@ -50,6 +51,7 @@ public class hitKill : MonoBehaviour {
 			if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
 				if (hit.transform.gameObject.GetComponent <MinionHealth> ().damage (25f)) {
 					score += points;
+						progressionController.GetComponent<ProgressionController> ().onMinionKilled (score);
 				}
 			}
 		}
@@ -58,6 +60,7 @@ public class hitKill : MonoBehaviour {
 				if ( arrayTarget [i] == null || Vector3.SqrMagnitude (arrayKnife [i].transform.position - arrayTarget [i].transform.position) < 1f) {
 					if ( arrayTarget [i] != null && arrayTarget [i].GetComponent <MinionHealth> ().damage (25f)) {
 						score += points;
+						progressionController.GetComponent<ProgressionController> ().onMinionKilled (score);
 					}
 					Destroy (arrayKnife[i]);
 					arrayTarget [i] = null;
