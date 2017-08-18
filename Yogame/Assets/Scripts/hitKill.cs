@@ -28,20 +28,17 @@ public class hitKill : MonoBehaviour {
 					ray = Camera.main.ScreenPointToRay (Input.GetTouch (0).position);
 					//Debug. Ray (ray.origin, ray.direction * 20, Color.red);
 				if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
-					//Debug.Log ("Hit Something");
-					for (int i = 0; i < arrayKnife.Length ; i++) {
-						if (arrayKnife[i] == null) {
-							arrayKnife[i] = Instantiate (modelKnife, new Vector3(yoda.transform.position.x,yoda.transform.position.y + 0.5f,yoda.transform.position.z), Quaternion.identity);
-							arrayTarget[i] = hit.transform.gameObject;
-							arrayKnife[i].transform.LookAt (arrayTarget[i].transform.position);
-							i=5;
+					if (yoda.GetComponent <Stamina> ().chekStamine()){
+						yoda.GetComponent <Stamina> ().stamine (20f);
+						for (int i = 0; i < arrayKnife.Length; i++) {
+							if (arrayKnife [i] == null) {
+								arrayKnife [i] = Instantiate (modelKnife, new Vector3 (yoda.transform.position.x, yoda.transform.position.y + 0.3f, yoda.transform.position.z), Quaternion.identity);
+								arrayTarget [i] = hit.transform.gameObject;
+								arrayKnife [i].transform.LookAt (arrayTarget [i].transform.position);
+								i = 5;
+							}
 						}
 					}
-
-				
-
-
-					//Debug.Log (hit.transform);
 				}	
 			}
 		}else	
@@ -57,7 +54,8 @@ public class hitKill : MonoBehaviour {
 		}
 		for(int i = 0; i <  arrayKnife.Length ; i++){
 			if (arrayKnife[i] != null) {
-				if ( arrayTarget [i] == null || Vector3.SqrMagnitude (arrayKnife [i].transform.position - arrayTarget [i].transform.position) < 1f) {
+				if ( arrayTarget [i] == null || Vector3.SqrMagnitude (arrayKnife [i].transform.position - 
+					new Vector3(arrayTarget [i].transform.position.x,arrayTarget [i].transform.position.y + 0.3f,arrayTarget [i].transform.position.z)) < 1f) {
 					if ( arrayTarget [i] != null && arrayTarget [i].GetComponent <MinionHealth> ().damage (25f)) {
 						score += points;
 						progressionController.GetComponent<ProgressionController> ().onMinionKilled (score);
@@ -65,7 +63,8 @@ public class hitKill : MonoBehaviour {
 					Destroy (arrayKnife[i]);
 					arrayTarget [i] = null;
 				} else  {
-					arrayKnife [i].transform.LookAt (arrayTarget [i].transform.position);
+					
+					arrayKnife [i].transform.LookAt (new Vector3(arrayTarget [i].transform.position.x,arrayTarget [i].transform.position.y + 0.3f,arrayTarget [i].transform.position.z));
 					arrayKnife [i].transform.position += new Vector3 (arrayKnife [i].transform.forward.x, 0, arrayKnife [i].transform.forward.z) * Time.deltaTime * 10f;
 				}
 			}

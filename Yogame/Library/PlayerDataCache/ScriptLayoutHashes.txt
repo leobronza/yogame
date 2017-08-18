@@ -1,7 +1,13 @@
 Android
 a723fbedae099b288a2c2e28fddfb6d7 Assembly-CSharp.dll:.MinionMoviment
-662f86498c35367baccf7847339b73d7 Assembly-CSharp.dll:.Respawn
+af991eb305791d477e6caaa352009e3d Assembly-CSharp.dll:.Respawn
+31b6fe59d3145c8b9bcb2799194ec1ad Assembly-CSharp.dll:.DamageHandler
 970ada317d37f8cbb7867dae471f524f Assembly-CSharp.dll:.hitKill
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MoveHandler
+b457c42043793611d10f78d76d7cf6be Assembly-CSharp.dll:.PlayerShooting
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.FixRotation
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MinionTrigger
+81d3fa35f3270744d8c271fbb7597c65 Assembly-CSharp.dll:.SelfDestruct
 93370bcf1a358da371851365e166bd19 Assembly-CSharp.dll:.MinionHealth
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.SpatialMappingCollider
@@ -133,9 +139,5 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.SpatialMappingRenderer
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
-b457c42043793611d10f78d76d7cf6be Assembly-CSharp.dll:.PlayerShooting
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MoveHandler
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MinionTrigger
-81d3fa35f3270744d8c271fbb7597c65 Assembly-CSharp.dll:.SelfDestruct
-31b6fe59d3145c8b9bcb2799194ec1ad Assembly-CSharp.dll:.DamageHandler
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.FixRotation
+6bd432c8871a87ebe10b042edbbb08b6 Assembly-CSharp.dll:.Stamina
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ProgressionController

@@ -150,5 +150,9 @@ public class MinionMoviment : MonoBehaviour {
 	}
 		
 
+	public void setMoveSpeed(float moveSpeed){
+		this.moveSpeed = moveSpeed;
+	}
+
 
 }

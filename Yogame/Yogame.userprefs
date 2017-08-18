@@ -1,12 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ProgressionController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Stamina.cs">
     <Files>
-      <File FileName="Assets\ProgressionController.cs" Line="36" Column="51" />
-      <File FileName="Assets\Scripts\RandomPositionPerTime.cs" Line="18" Column="112" />
-      <File FileName="Assets\Scripts\hitKill.cs" Line="56" Column="1" />
-      <File FileName="Assets\Scripts\Respawn.cs" Line="9" Column="26" />
-      <File FileName="Assets\Scripts\MinionMoviment.cs" Line="31" Column="46" />
+      <File FileName="Assets\Scripts\MinionHealth.cs" Line="28" Column="1" />
+      <File FileName="Assets\Stamina.cs" Line="21" Column="30" />
+      <File FileName="Assets\Scripts\hitKill.cs" Line="32" Column="52" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
