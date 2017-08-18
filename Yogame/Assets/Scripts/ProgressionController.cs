@@ -6,7 +6,7 @@ public class ProgressionController : MonoBehaviour {
 	
 	// Score
 	private float progressionScore = 1.2f; 
-	private float progressionScoreLiberty = 2f;
+	private float progressionScoreLiberty = 1.33f;
 	private int nextScorePoint = 10;
 	private int previousScorePoint = 10;
 
@@ -45,11 +45,11 @@ public class ProgressionController : MonoBehaviour {
 			int ScoreStep = (nextScorePoint - previousScorePoint); 
 
 			//Enemy Amount
-			nextScoreAmountEnemy = (int)(ScoreStep/ ((int)Random.Range ((float)amountEnemies * progressionAmountEnemy, (float)amountEnemies * progressionAmountEnemy * progressionAmountEnemyLiberty) - amountEnemies + 1));
+			nextScoreAmountEnemy = (int)Mathf.Round((ScoreStep/ (Random.Range ((float)amountEnemies * progressionAmountEnemy, (float)amountEnemies * progressionAmountEnemy * progressionAmountEnemyLiberty) - amountEnemies + 1)));
 			amountEnemyInt = 1;
 
 			//Move Speed Enemy
-			nextScoreMoveSpeedEnemy = (int)(ScoreStep/((int)Random.Range (moveSpeedEnemies * progressionMoveSpeedEnemy, moveSpeedEnemies * progressionMoveSpeedEnemy * progressionMoveSpeedEnemyLiberty) - moveSpeedEnemies + 1));
+			nextScoreMoveSpeedEnemy = (int)Mathf.Round(ScoreStep/ Random.Range (moveSpeedEnemies * progressionMoveSpeedEnemy, moveSpeedEnemies * progressionMoveSpeedEnemy * progressionMoveSpeedEnemyLiberty) - moveSpeedEnemies + 1);
 			moveSpeedEnemyInt = 1;
 		} 
 
