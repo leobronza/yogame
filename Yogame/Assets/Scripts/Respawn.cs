@@ -6,7 +6,7 @@ public class Respawn : MonoBehaviour {
 
 	public List<GameObject> minions;
 	public GameObject modelMinion;
-	public int amountMinions = 4; //TODO change to private
+	public float amountMinions = 1; //TODO change to private
 	public int team; 
 	private float moveSpeed = 1.0f;
 	private Vector3 minionDestination;
@@ -14,7 +14,7 @@ public class Respawn : MonoBehaviour {
 
 	void Start () {
 		minions = new List<GameObject>();
-		for(int i = 0 ; i < amountMinions ;i ++){
+		for(int i = 0 ; i < (int)amountMinions ;i ++){
 			minions.Add (null);
 			minionDestination = new RandomPositionPerTeam ().getRandomPositionPerTeam (team, 0.5F, "BackGround", 0.02F);
 			if (!Physics.CheckSphere (minionDestination, 0.49f)) {
@@ -27,7 +27,7 @@ public class Respawn : MonoBehaviour {
 	}
 
 	void Update () {
-		for (int i = 0; i < amountMinions; i++) {
+		for (int i = 0; i < (int)amountMinions; i++) {
 			if (i >= minions.Count) {
 					minionDestination = new RandomPositionPerTeam ().getRandomPositionPerTeam (team, 0.5F, "BackGround", 0.02F);
 				if (!Physics.CheckSphere (minionDestination, 0.49f)) {
@@ -53,10 +53,10 @@ public class Respawn : MonoBehaviour {
 
 	// Amount
 	public void plusAmountMinions(){
-		this.amountMinions++;
+		this.amountMinions += 0.1f;
 	}
 
-	public void setAmountMinions(int amountMinions){
+	public void setAmountMinions(float amountMinions){
 		this.amountMinions = amountMinions;
 	}
 

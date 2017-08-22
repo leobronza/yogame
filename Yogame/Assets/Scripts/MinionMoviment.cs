@@ -14,7 +14,7 @@ public class MinionMoviment : MonoBehaviour {
 	private Rigidbody rigidBody;
 	private RigidbodyConstraints previousConstraints;
 	private float timestamp = 0.0f;
-	private float attack;
+	private float attackPower;
 
 	void Awake () {
 		path = new UnityEngine.AI.NavMeshPath();
@@ -146,7 +146,7 @@ public class MinionMoviment : MonoBehaviour {
 		
 	private void attack(){
 		if (target != null) {
-			target.GetComponent <MinionHealth> ().damage (attack);
+			target.GetComponent <MinionHealth> ().damage (attackPower);
 		}
 	}
 		
@@ -155,8 +155,8 @@ public class MinionMoviment : MonoBehaviour {
 		this.moveSpeed = moveSpeed;
 	}
 
-	public void setAttack(float attack){
-		this.attack = attack;
+	public void setAttack(float attackPower){
+		this.attackPower = attackPower;
 	}
 
 }

@@ -14,6 +14,8 @@ public class hitKill : MonoBehaviour {
 	private GameObject[] arrayTarget;
 	public GameObject[] arrayKnife;
 	private GameObject progressionController;
+	private float holdTime = 0.8f; 
+	private float acumTime = 0;
 
 	void Start () {
 		arrayKnife = new GameObject[5];
@@ -24,11 +26,12 @@ public class hitKill : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.touchCount > 0) { 
-			if (Input.GetTouch (0).phase == TouchPhase.Began) {
-					ray = Camera.main.ScreenPointToRay (Input.GetTouch (0).position);
-					//Debug. Ray (ray.origin, ray.direction * 20, Color.red);
+			if (Input.GetTouch (0).phase == TouchPhase.Ended) {
+				acumTime = 0; 
+				ray = Camera.main.ScreenPointToRay (Input.GetTouch (0).position);
+				//Debug. Ray (ray.origin, ray.direction * 20, Color.red);
 				if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
-					if (yoda.GetComponent <Stamina> ().chekStamine()){
+					if (yoda.GetComponent <Stamina> ().chekStamine ()) {
 						yoda.GetComponent <Stamina> ().stamine (20f);
 						for (int i = 0; i < arrayKnife.Length; i++) {
 							if (arrayKnife [i] == null) {
@@ -40,15 +43,37 @@ public class hitKill : MonoBehaviour {
 						}
 					}
 				}	
+			} else {
+				acumTime += Input.GetTouch(0).deltaTime;
+
+				if(acumTime >= holdTime)
+				{	
+
+					Collider[] hitColliders = Physics.OverlapSphere(new Vector3(0,0,0), 4.0f);
+					print (hitColliders.Length);
+					int i = 0;
+					while (i < hitColliders.Length)
+					{
+						if (hitColliders[i].transform.gameObject.GetComponent <MinionHealth> ().damage (25f)) {
+							score += points;
+							progressionController.GetComponent<ProgressionController> ().onMinionKilled (score);
+						}
+
+						i++;
+					}
+				}
+
+
+
 			}
-		}else	
+		}
 
 	if(Input.GetMouseButtonDown(0)){
 		ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
 				if (hit.transform.gameObject.GetComponent <MinionHealth> ().damage (25f)) {
 					score += points;
-						progressionController.GetComponent<ProgressionController> ().onMinionKilled (score);
+					progressionController.GetComponent<ProgressionController> ().onMinionKilled (score);
 				}
 			}
 		}
