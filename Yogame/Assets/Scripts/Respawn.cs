@@ -10,6 +10,7 @@ public class Respawn : MonoBehaviour {
 	public int team; 
 	private float moveSpeed = 1.0f;
 	private Vector3 minionDestination;
+	private float attack;
 
 	void Start () {
 		minions = new List<GameObject>();
@@ -20,6 +21,7 @@ public class Respawn : MonoBehaviour {
 				minions.Insert(i, Instantiate (modelMinion, minionDestination, Quaternion.identity, this.transform));
 				//enemies [i].transform.LookAt (new Vector3 (0f, 0.02f, 0f));
 				minions[i].GetComponent<MinionMoviment>().setMoveSpeed(moveSpeed);
+				minions[i].GetComponent<MinionMoviment>().setAttack(attack);
 			}
 		}
 	}
@@ -32,6 +34,7 @@ public class Respawn : MonoBehaviour {
 					minions.Insert(i, Instantiate (modelMinion, minionDestination, Quaternion.identity, this.transform));
 					//enemies [i].transform.LookAt (new Vector3 (0f, 0.02f, 0f));
 					minions[i].GetComponent<MinionMoviment>().setMoveSpeed(moveSpeed);
+					minions[i].GetComponent<MinionMoviment>().setAttack(attack);
 				}
 			} 
 			else if (minions [i] == null) {
@@ -41,12 +44,14 @@ public class Respawn : MonoBehaviour {
 					minions [i] = Instantiate (modelMinion, minionDestination, Quaternion.identity, this.transform);
 					//enemies [i].transform.LookAt (new Vector3 (0f, 0.02f, 0f));
 					minions[i].GetComponent<MinionMoviment>().setMoveSpeed(moveSpeed);
+					minions[i].GetComponent<MinionMoviment>().setAttack(attack);
 				}
 
 			}
 		}
 	}
 
+	// Amount
 	public void plusAmountMinions(){
 		this.amountMinions++;
 	}
@@ -55,11 +60,22 @@ public class Respawn : MonoBehaviour {
 		this.amountMinions = amountMinions;
 	}
 
+	// Move Speed
 	public void plusMoveSpeed(){
-		this.moveSpeed += 0.2F;
+		this.moveSpeed += 0.1F;
 	}
 
 	public void setMoveSpeed(float moveSpeed){
 		this.moveSpeed = moveSpeed;
 	}
+
+	// Attack
+	public void plusAttack(){
+		this.attack += 1;
+	}
+
+	public void setAttack(float attack){
+		this.attack = attack;
+	}
+
 }

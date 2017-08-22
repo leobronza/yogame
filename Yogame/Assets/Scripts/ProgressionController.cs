@@ -5,8 +5,8 @@ using UnityEngine;
 public class ProgressionController : MonoBehaviour {
 	
 	// Score
-	private float progressionScore = 1.2f; 
-	private float progressionScoreLiberty = 1.33f;
+	private int progressionScore = 60; 
+	private int progressionScoreLiberty = 90;
 	private int nextScorePoint = 10;
 	private int previousScorePoint = 10;
 
@@ -14,23 +14,34 @@ public class ProgressionController : MonoBehaviour {
 	private GameObject enemyTeam;
 
 	// Enemy Amount
-	private float progressionAmountEnemy = 1.2f; 
-	private float progressionAmountEnemyLiberty = 1.33f;
-	private int nextScoreAmountEnemy = 11; 
+	private int progressionAmountEnemy = 1; 
+	private int progressionAmountEnemyLiberty = 2;
+	private int stepScoreAmountEnemy = 11; 
 	private int amountEnemies = 3;
 	private int amountEnemyInt = 1;
+	private int amountEnemyIncrease = 0;
 
 	// Move Speed Enemy
-	private float progressionMoveSpeedEnemy = 1.2F; 
-	private float progressionMoveSpeedEnemyLiberty = 1.33f;
-	private int nextScoreMoveSpeedEnemy = 11;
-	private float moveSpeedEnemies = 1.0f;
+	private int progressionMoveSpeedEnemy = 1; 
+	private int progressionMoveSpeedEnemyLiberty = 2;
+	private int stepScoreMoveSpeedEnemy = 11;
+	private int moveSpeedEnemies = 1; // 1 = 0.05
 	private int moveSpeedEnemyInt = 1;
+	private int moveSpeedEnemyIncrease = 0;
+
+	// Attack Enemy
+	private int progressionAttackEnemy = 1; 
+	private int progressionAttackEnemyLiberty = 2;
+	private int stepScoreAttackEnemy = 11;
+	private int attackEnemies = 1; // 1 = 0.05 ??
+	private int attackEnemyInt = 1;
+	private int attackEnemyIncrease = 0;
 
 	void Start () {
 		enemyTeam = GameObject.FindGameObjectWithTag ("EnemyTeam");
-		enemyTeam.GetComponent<Respawn>().setAmountMinions(amountEnemies);
-		enemyTeam.GetComponent<Respawn> ().setMoveSpeed (moveSpeedEnemies);
+		enemyTeam.GetComponent<Respawn>().setAmountMinions(3);
+		enemyTeam.GetComponent<Respawn> ().setMoveSpeed (1.0f);
+		enemyTeam.GetComponent<Respawn> ().setAttack (25.0f);
 	}
 
 	public void onMinionKilled(int score){
@@ -39,36 +50,50 @@ public class ProgressionController : MonoBehaviour {
 		if (score == nextScorePoint) {
 			// Score
 			previousScorePoint = score;
-			nextScorePoint = (int)Random.Range ((float)nextScorePoint * progressionScore, (float)nextScorePoint *  progressionScore * progressionScoreLiberty);
-			print ("Next Score; " + nextScorePoint);
+			nextScorePoint = (int)Random.Range (nextScorePoint + progressionScore, nextScorePoint + progressionScoreLiberty);
+			print ("Next Score: " + nextScorePoint);
 
 			int ScoreStep = (nextScorePoint - previousScorePoint); 
 
 			//Enemy Amount
-			nextScoreAmountEnemy = (int)Mathf.Round((ScoreStep/ (Random.Range ((float)amountEnemies * progressionAmountEnemy, (float)amountEnemies * progressionAmountEnemy * progressionAmountEnemyLiberty) - amountEnemies + 1)));
+			amountEnemyIncrease = Random.Range (amountEnemies + progressionAmountEnemy, amountEnemies +  progressionAmountEnemyLiberty) + 1 ;
+			stepScoreAmountEnemy = (int)ScoreStep / amountEnemyIncrease;
 			amountEnemyInt = 1;
 
 			//Move Speed Enemy
-			nextScoreMoveSpeedEnemy = (int)Mathf.Round(ScoreStep/ Random.Range (moveSpeedEnemies * progressionMoveSpeedEnemy, moveSpeedEnemies * progressionMoveSpeedEnemy * progressionMoveSpeedEnemyLiberty) - moveSpeedEnemies + 1);
-			moveSpeedEnemyInt = 1;
+			moveSpeedEnemyIncrease = Random.Range (moveSpeedEnemies + progressionMoveSpeedEnemy, moveSpeedEnemies + progressionMoveSpeedEnemyLiberty) + 1;
+			stepScoreMoveSpeedEnemy = (int)ScoreStep / moveSpeedEnemyIncrease;
+			amountEnemyInt = 1;
+
+			// Attack Enemy
+			attackEnemyIncrease = Random.Range (attackEnemies + progressionAttackEnemy, attackEnemies + progressionAttackEnemyLiberty) + 1;
+			stepScoreAttackEnemy = (int)ScoreStep / attackEnemyIncrease;
+			attackEnemyInt = 1;
 		} 
 
 		// Enemy Amount
-		if(score == previousScorePoint + nextScoreAmountEnemy * amountEnemyInt){
+		if(score == previousScorePoint + stepScoreAmountEnemy * amountEnemyInt && amountEnemyInt <= moveSpeedEnemyIncrease){
 			enemyTeam.GetComponent<Respawn> ().plusAmountMinions();
 			amountEnemies++;
 			amountEnemyInt++;
-			print ("Next Point to plus Enemy: " + nextScoreAmountEnemy * amountEnemyInt);
+			print ("Next Point to plus Enemy: " + previousScorePoint + stepScoreAmountEnemy * amountEnemyInt);
 		}
 
 		// Move Speed Enemy
-		if(score == previousScorePoint + nextScoreMoveSpeedEnemy * moveSpeedEnemyInt){
+		if(score == previousScorePoint + stepScoreMoveSpeedEnemy * moveSpeedEnemyInt  && moveSpeedEnemyInt <= moveSpeedEnemyIncrease ){
 			enemyTeam.GetComponent<Respawn> ().plusMoveSpeed();
-			moveSpeedEnemies += 0.2f;
+			moveSpeedEnemies++;
 			moveSpeedEnemyInt++;
-			print ("Next Point to plus Enemy Move Speed: " + nextScoreMoveSpeedEnemy * moveSpeedEnemyInt);
+			print ("Next Point to plus Enemy Move Speed: " + previousScorePoint + stepScoreMoveSpeedEnemy * moveSpeedEnemyInt );
 		}
 
+		// Attack Enemy
+		if(score == previousScorePoint + stepScoreAttackEnemy * attackEnemyInt  && attackEnemyInt <= attackEnemyIncrease ){
+			enemyTeam.GetComponent<Respawn> ().plusAttack();
+			attackEnemies++;
+			attackEnemyInt++;
+			print ("Next Point to plus Enemy Attack: "+ previousScorePoint + stepScoreAttackEnemy * attackEnemyInt );
+		}
 
 	}
 		
