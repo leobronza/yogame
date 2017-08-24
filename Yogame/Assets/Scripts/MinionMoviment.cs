@@ -146,7 +146,11 @@ public class MinionMoviment : MonoBehaviour {
 		
 	private void attack(){
 		if (target != null) {
-			target.GetComponent <MinionHealth> ().damage (attackPower);
+			if (!target.name.Equals ("Nexus")) {
+				target.GetComponent <MinionHealth> ().damage (attackPower);
+			}else{
+				target.GetComponent <NexuHealth> ().damage (attackPower);
+			}
 		}
 	}
 		

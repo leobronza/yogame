@@ -1,19 +1,18 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\hitKill.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Stamina.cs">
     <Files>
-      <File FileName="Assets\Scripts\MinionHealth.cs" Line="36" Column="56" />
-      <File FileName="Assets\Stamina.cs" Line="23" Column="3" />
-      <File FileName="Assets\Scripts\hitKill.cs" Line="58" Column="24" />
-      <File FileName="Assets\Scripts\ProgressionController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Respawn.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MinionMoviment.cs" Line="110" Column="4" />
-      <File FileName="Assets\NexuHealth.cs" Line="11" Column="17" />
+      <File FileName="Assets\Scripts\MinionHealth.cs" Line="7" Column="19" />
+      <File FileName="Assets\NexuHealth.cs" Line="15" Column="32" />
+      <File FileName="Assets\Scripts\MinionMoviment.cs" Line="152" Column="1" />
+      <File FileName="Assets\Scripts\Stamina.cs" Line="17" Column="41" />
+      <File FileName="Assets\Scripts\Respawn.cs" Line="19" Column="110" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="D:\Windows\Yogame\Yogame\Assets\ProgressionController.cs" line="30" column="1" />
+      <Breakpoint file="D:\Users\Acer\Documents\GitHub\yogame\Yogame\Assets\Scripts\hitKill.cs" line="53" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>

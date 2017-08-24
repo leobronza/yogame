@@ -14,11 +14,6 @@ public class MinionHealth : MonoBehaviour {
 		//InvokeRepeating ("decreasehealth", 1f, 1f);
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-	}
-
 	public bool damage(float hit){
 		if (cur_Health - hit <= 0) {
 			Destroy (gameObject);

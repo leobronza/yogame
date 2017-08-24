@@ -14,8 +14,10 @@ public class hitKill : MonoBehaviour {
 	private GameObject[] arrayTarget;
 	public GameObject[] arrayKnife;
 	private GameObject progressionController;
-	private float holdTime = 0.8f; 
+	private float holdTime = 0.0f; 
 	private float acumTime = 0;
+	private Vector3 touchPosition; 
+	private bool isTouchPosition;
 
 	void Start () {
 		arrayKnife = new GameObject[5];
@@ -28,13 +30,16 @@ public class hitKill : MonoBehaviour {
 		if (Input.touchCount > 0) { 
 			if (Input.GetTouch (0).phase == TouchPhase.Ended) {
 				acumTime = 0; 
+				isTouchPosition = false;
+
 				ray = Camera.main.ScreenPointToRay (Input.GetTouch (0).position);
 				//Debug. Ray (ray.origin, ray.direction * 20, Color.red);
 				if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
-					if (yoda.GetComponent <Stamina> ().chekStamine ()) {
-						yoda.GetComponent <Stamina> ().stamine (20f);
+					if(hit.transform.gameObject.tag.Equals("Enemy")){
+					if (yoda.GetComponent <Stamina> ().chekStaminaKnife ()) {
 						for (int i = 0; i < arrayKnife.Length; i++) {
 							if (arrayKnife [i] == null) {
+								yoda.GetComponent <Stamina> ().decreaseStaminaKnife ();
 								arrayKnife [i] = Instantiate (modelKnife, new Vector3 (yoda.transform.position.x, yoda.transform.position.y + 0.3f, yoda.transform.position.z), Quaternion.identity);
 								arrayTarget [i] = hit.transform.gameObject;
 								arrayKnife [i].transform.LookAt (arrayTarget [i].transform.position);
@@ -43,22 +48,27 @@ public class hitKill : MonoBehaviour {
 						}
 					}
 				}	
-			} else {
+			}
+			} else {// Phase Canceled??
 				acumTime += Input.GetTouch(0).deltaTime;
-
+		
+				if (isTouchPosition == false) {
+					touchPosition	= new Vector3(Camera.main.ScreenToWorldPoint(Input.GetTouch (0).position).x,0.02F,Camera.main.ScreenToWorldPoint(Input.GetTouch (0).position).z);
+					isTouchPosition = true;
+				}
 				if(acumTime >= holdTime)
-				{	
-
-					Collider[] hitColliders = Physics.OverlapSphere(new Vector3(0,0,0), 4.0f);
-					print (hitColliders.Length);
+				{
+					Collider[] hitColliders = Physics.OverlapSphere(touchPosition, 4.0f);
 					int i = 0;
-					while (i < hitColliders.Length)
-					{
-						if (hitColliders[i].transform.gameObject.GetComponent <MinionHealth> ().damage (25f)) {
-							score += points;
-							progressionController.GetComponent<ProgressionController> ().onMinionKilled (score);
-						}
+					while (i < hitColliders.Length) {
+						if (hitColliders [i].transform.gameObject.tag.Equals ("Enemy")) {
+							if (hitColliders [i].transform.gameObject.GetComponent <MinionHealth> ().damage (25f)) {
+								score += points;
+								progressionController.GetComponent<ProgressionController> ().onMinionKilled (score);
+							}
 
+						
+						}
 						i++;
 					}
 				}
@@ -67,21 +77,32 @@ public class hitKill : MonoBehaviour {
 
 			}
 		}
-
+		// ***** para Debug *****
 	if(Input.GetMouseButtonDown(0)){
 		ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			if (Physics.Raycast (ray, out hit, Mathf.Infinity)) {
-				if (hit.transform.gameObject.GetComponent <MinionHealth> ().damage (25f)) {
-					score += points;
-					progressionController.GetComponent<ProgressionController> ().onMinionKilled (score);
+				if(hit.transform.gameObject.tag.Equals("Enemy")){
+					if (yoda.GetComponent <Stamina> ().chekStaminaKnife ()) {
+						for (int i = 0; i < arrayKnife.Length; i++) {
+							if (arrayKnife [i] == null) {
+								yoda.GetComponent <Stamina> ().decreaseStaminaKnife ();
+								arrayKnife [i] = Instantiate (modelKnife, new Vector3 (yoda.transform.position.x, yoda.transform.position.y + 0.3f, yoda.transform.position.z), Quaternion.identity);
+								arrayTarget [i] = hit.transform.gameObject;
+								arrayKnife [i].transform.LookAt (arrayTarget [i].transform.position);
+								i = 5;
+							}
+						}
+					}
 				}
-			}
-		}
+			}                               
+	}
+		// ***** para Debug *****
+
 		for(int i = 0; i <  arrayKnife.Length ; i++){
 			if (arrayKnife[i] != null) {
 				if ( arrayTarget [i] == null || Vector3.SqrMagnitude (arrayKnife [i].transform.position - 
 					new Vector3(arrayTarget [i].transform.position.x,arrayTarget [i].transform.position.y + 0.3f,arrayTarget [i].transform.position.z)) < 1f) {
-					if ( arrayTarget [i] != null && arrayTarget [i].GetComponent <MinionHealth> ().damage (25f)) {
+					if (arrayTarget [i] != null && arrayTarget [i].GetComponent <MinionHealth> ().damage (25f)) {
 						score += points;
 						progressionController.GetComponent<ProgressionController> ().onMinionKilled (score);
 					}
