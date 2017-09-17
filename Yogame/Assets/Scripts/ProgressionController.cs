@@ -39,9 +39,7 @@ public class ProgressionController : MonoBehaviour {
 
 	void Start () {
 		enemyTeam = GameObject.FindGameObjectWithTag ("EnemyTeam");
-		enemyTeam.GetComponent<Respawn>().setAmountMinions(3);
-		enemyTeam.GetComponent<Respawn> ().setMoveSpeed (1.0f);
-		enemyTeam.GetComponent<Respawn> ().setAttack (25.0f);
+		resetProgression ();
 	}
 
 	public void onMinionKilled(int score){
@@ -97,4 +95,14 @@ public class ProgressionController : MonoBehaviour {
 
 	}
 		
+	public void resetProgression(){
+		enemyTeam.GetComponent<Respawn>().setAmountMinions(3);
+		enemyTeam.GetComponent<Respawn> ().setMoveSpeed (1.0f);
+		enemyTeam.GetComponent<Respawn> ().setAttack (25.0f);
+		nextScorePoint = 10;
+		previousScorePoint = 10;
+		amountEnemies = 3;
+		moveSpeedEnemies = 1;
+		attackEnemies = 1;
+		}
 }

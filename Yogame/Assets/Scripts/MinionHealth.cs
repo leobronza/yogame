@@ -13,16 +13,22 @@ public class MinionHealth : MonoBehaviour {
 		cur_Health = max_Health;
 		//InvokeRepeating ("decreasehealth", 1f, 1f);
 	}
-
-	public bool damage(float hit){
+	// source
+	// 0 => Minions
+	// 1 => Player
+	public void damage(float hit, int source){
 		if (cur_Health - hit <= 0) {
+			if (source == 1) {
+				GameObject.FindGameObjectWithTag ("GameController").GetComponent<Score> ().minionDead ();
+			}
 			Destroy (gameObject);
-			return true;
+			//return true;
+
 		} else {
 			cur_Health -= hit;
 			float calc_Health = cur_Health / max_Health;
 			setHealthBar (calc_Health);
-			return false;
+			//return false;
 		}
 	}
 

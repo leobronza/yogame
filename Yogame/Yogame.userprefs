@@ -1,12 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Stamina.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameOver.cs">
     <Files>
-      <File FileName="Assets\Scripts\MinionHealth.cs" Line="7" Column="19" />
-      <File FileName="Assets\NexuHealth.cs" Line="15" Column="32" />
-      <File FileName="Assets\Scripts\MinionMoviment.cs" Line="152" Column="1" />
-      <File FileName="Assets\Scripts\Stamina.cs" Line="17" Column="41" />
-      <File FileName="Assets\Scripts\Respawn.cs" Line="19" Column="110" />
+      <File FileName="Assets\Scripts\MinionHealth.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MinionMoviment.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ProgressionController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GameOver.cs" Line="11" Column="71" />
+      <File FileName="Assets\Scripts\Stamine.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Respawn.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Touch.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MinionHealthFix.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\NexusHealth.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Score.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

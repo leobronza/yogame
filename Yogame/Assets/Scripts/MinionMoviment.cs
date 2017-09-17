@@ -15,6 +15,7 @@ public class MinionMoviment : MonoBehaviour {
 	private RigidbodyConstraints previousConstraints;
 	private float timestamp = 0.0f;
 	private float attackPower;
+	private bool pause = false;
 
 	void Awake () {
 		path = new UnityEngine.AI.NavMeshPath();
@@ -28,87 +29,88 @@ public class MinionMoviment : MonoBehaviour {
 	}
 		
 	void Update () {
-		//this.transform.eulerAngles = new Vector3 (0, this.transform.eulerAngles.y, 0);
-		rigidBody.velocity = new Vector3 (0, 0, 0);
+		if (!pause) {
+			//this.transform.eulerAngles = new Vector3 (0, this.transform.eulerAngles.y, 0);
+			rigidBody.velocity = new Vector3 (0, 0, 0);
 
-		if (target == null) {
-			CancelInvoke ();
-			manualApproachAndAttack = false;
-			rigidBody.mass = 100;
-			rigidBody.constraints = previousConstraints;
-		}
+			if (target == null) {
+				CancelInvoke ();
+				manualApproachAndAttack = false;
+				rigidBody.mass = 100;
+				rigidBody.constraints = previousConstraints;
+			}
 			
 
-		if (!manualApproachAndAttack) {
-			updateTarget ();
-		}
+			if (!manualApproachAndAttack) {
+				updateTarget ();
+			}
 
 
-		if (target != null) {
-			float distanceToTarget = Vector3.Distance (this.transform.position, target.transform.position);
+			if (target != null) {
+				float distanceToTarget = Vector3.Distance (this.transform.position, target.transform.position);
 		
-			Vector3 forward = this.transform.position +  (this.transform.forward * 0.78f);
-			Debug.DrawRay (forward , Vector3.up, Color.yellow, 0.0f);
+				Vector3 forward = this.transform.position + (this.transform.forward * 0.78f);
+				//Debug.DrawRay (forward, Vector3.up, Color.yellow, 0.0f);
 
-			float distanceToTargetVector3 = Vector3.Distance (forward, targetVector3);
-			if (distanceToTargetVector3 < 0.12f || distanceToTarget < (target.name.Equals ("Nexus") ? 2.3f :1.65f) ) {
-				manualApproachAndAttack = true;
-			}
-
-			// NavMesh walk
-			if (!manualApproachAndAttack && target != null){
-				resultePath = UnityEngine.AI.NavMesh.CalculatePath (forward, targetVector3, UnityEngine.AI.NavMesh.AllAreas, path);
-				if (resultePath && path.corners.Length > 1) {
-					for (int i = 0; i < path.corners.Length - 1; i++) {
-						Debug.DrawLine (path.corners [i], path.corners [i + 1], Color.red);	
-					}
-					//Vector3 x1 = path.corners [1] - path.corners [0];
-					//Vector3 x2 = x1.normalized;
-					//print (path.corners [0] + new Vector3 (x2.x, x2.y, x2.z));
-					//Debug.DrawLine (path.corners [0] + new Vector3(x2.x, x2.y, x2.z) * 0.03f, Vector3.up, Color.blue);
-					//transform.LookAt (path.corners [0] + new Vector3 (x2.x, x2.y, x2.z) * 0.03f);
-					transform.LookAt (new Vector3 (path.corners [1].x, targetVector3.y, path.corners [1].z));
-					//Vector3 direction = new Vector3 (path.corners [1].x, targetVector3.y, path.corners [1].z) - this.transform.position;
-					///Debug.DrawRay (direction , Vector3.up, Color.yellow, 0.0f);
-
-					//Quaternion toRotation = Quaternion.FromToRotation(transform.forward, direction );
-					//print (toRotation);
-					//transform.rotation = Quaternion.Lerp(this.transform.rotation, toRotation, 0.5f * Time.time);
-					//Quaternion toRotation = Quaternion.Euler(Vector3.Lerp(transform.forward, direction, 0.5f * Time.time));
-					//rigidBody.MoveRotation(rigidBody.rotation * toRotation);
-
-					rigidBody.MovePosition (this.transform.position + new Vector3 (this.transform.forward.x, 0, this.transform.forward.z) * Time.deltaTime * moveSpeed);
-				} else {
-					transform.LookAt (new Vector3 (0f, 0.02f, 0f));
+				float distanceToTargetVector3 = Vector3.Distance (forward, targetVector3);
+				if (distanceToTargetVector3 < 0.12f || distanceToTarget < (target.name.Equals ("Nexus") ? 2.3f : 1.65f)) {
+					manualApproachAndAttack = true;
 				}
-			} 
 
-			// Manual Approach
-			if (manualApproachAndAttack && target != null) {
-				if (distanceToTarget < (target.name.Equals ("Nexus") ? 1.37f :0.75f)) {
-					
-					if (target != null) {
-						if (Time.time >= timestamp) {
-							//InvokeRepeating ("attack", 0.6f, 1);
-							attack();
-							timestamp = Time.time + 1.0f;
-						}
-						rigidBody.mass = 100000000;
-						rigidBody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+				// NavMesh walk
+				if (!manualApproachAndAttack && target != null) {
+					resultePath = UnityEngine.AI.NavMesh.CalculatePath (forward, targetVector3, UnityEngine.AI.NavMesh.AllAreas, path);
+					if (resultePath && path.corners.Length > 1) {
+						//for (int i = 0; i < path.corners.Length - 1; i++) {
+						//	Debug.DrawLine (path.corners [i], path.corners [i + 1], Color.red);	
+						//}
+						//Vector3 x1 = path.corners [1] - path.corners [0];
+						//Vector3 x2 = x1.normalized;
+						//print (path.corners [0] + new Vector3 (x2.x, x2.y, x2.z));
+						//Debug.DrawLine (path.corners [0] + new Vector3(x2.x, x2.y, x2.z) * 0.03f, Vector3.up, Color.blue);
+						//transform.LookAt (path.corners [0] + new Vector3 (x2.x, x2.y, x2.z) * 0.03f);
+						transform.LookAt (new Vector3 (path.corners [1].x, targetVector3.y, path.corners [1].z));
+						//Vector3 direction = new Vector3 (path.corners [1].x, targetVector3.y, path.corners [1].z) - this.transform.position;
+						///Debug.DrawRay (direction , Vector3.up, Color.yellow, 0.0f);
+
+						//Quaternion toRotation = Quaternion.FromToRotation(transform.forward, direction );
+						//print (toRotation);
+						//transform.rotation = Quaternion.Lerp(this.transform.rotation, toRotation, 0.5f * Time.time);
+						//Quaternion toRotation = Quaternion.Euler(Vector3.Lerp(transform.forward, direction, 0.5f * Time.time));
+						//rigidBody.MoveRotation(rigidBody.rotation * toRotation);
+
+						rigidBody.MovePosition (this.transform.position + new Vector3 (this.transform.forward.x, 0, this.transform.forward.z) * Time.deltaTime * moveSpeed);
+					} else {
+						transform.LookAt (new Vector3 (0f, 0.02f, 0f));
 					}
-				} else if (distanceToTarget >(target.name.Equals ("Nexus") ? 2.3f :1.65f) ) {
-					manualApproachAndAttack = false;
-					CancelInvoke ();
-					rigidBody.mass = 100;
-					rigidBody.constraints = previousConstraints;
-				} else {
-					timestamp = Time.time + 1.0f;
-					this.transform.LookAt (target.transform);
-					rigidBody.MovePosition(this.transform.position + new Vector3 (this.transform.forward.x, 0, this.transform.forward.z) * Time.deltaTime * moveSpeed);
+				} 
+
+				// Manual Approach
+				if (manualApproachAndAttack && target != null) {
+					if (distanceToTarget < (target.name.Equals ("Nexus") ? 1.37f : 0.75f)) {
+					
+						if (target != null) {
+							if (Time.time >= timestamp) {
+								//InvokeRepeating ("attack", 0.6f, 1);
+								attack ();
+								timestamp = Time.time + 1.0f;
+							}
+							rigidBody.mass = 100000000;
+							rigidBody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+						}
+					} else if (distanceToTarget > (target.name.Equals ("Nexus") ? 2.3f : 1.65f)) {
+						manualApproachAndAttack = false;
+						CancelInvoke ();
+						rigidBody.mass = 100;
+						rigidBody.constraints = previousConstraints;
+					} else {
+						timestamp = Time.time + 1.0f;
+						this.transform.LookAt (target.transform);
+						rigidBody.MovePosition (this.transform.position + new Vector3 (this.transform.forward.x, 0, this.transform.forward.z) * Time.deltaTime * moveSpeed);
+					}
 				}
 			}
 		}
-
 	}
 
 	void updateTarget(){
@@ -147,9 +149,9 @@ public class MinionMoviment : MonoBehaviour {
 	private void attack(){
 		if (target != null) {
 			if (!target.name.Equals ("Nexus")) {
-				target.GetComponent <MinionHealth> ().damage (attackPower);
+				target.GetComponent <MinionHealth> ().damage (attackPower, 0);
 			}else{
-				target.GetComponent <NexuHealth> ().damage (attackPower);
+				target.GetComponent <NexusHealth> ().damage (attackPower);
 			}
 		}
 	}
@@ -161,6 +163,9 @@ public class MinionMoviment : MonoBehaviour {
 
 	public void setAttack(float attackPower){
 		this.attackPower = attackPower;
+	}
+	public void setPause(bool pause){
+		this.pause = pause;
 	}
 
 }
