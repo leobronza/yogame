@@ -81,7 +81,7 @@ public class Touch : MonoBehaviour {
 
 	// ************************************************************* Debug ************************************************************
 			if (Input.GetMouseButtonUp (0)) {
-				yoda.GetComponent<MeshRenderer> ().enabled = true;
+				yoda.GetComponent<SpriteRenderer> ().enabled = true;
 				velocityKnife = 10f;
 				mouseHold = false;
 				acumTimeHold = 0;
@@ -91,7 +91,7 @@ public class Touch : MonoBehaviour {
 					if (hit.transform.gameObject.tag.Equals ("Enemy")) {
 						if (yoda.GetComponent <Stamine> ().chekStaminaKnife ()) {
 							yoda.GetComponent <Stamine> ().decreaseStaminaKnife ();
-							knifes.Add (Instantiate (modelKnife, new Vector3 (yoda.transform.position.x, yoda.transform.position.y + 0.3f, yoda.transform.position.z), Quaternion.identity));
+							knifes.Add (Instantiate (modelKnife, new Vector3 (yoda.transform.position.x, yoda.transform.position.y + 0.3f, yoda.transform.position.z), yoda.transform.rotation));
 							knifesTargets.Add (hit.transform.gameObject);
 						}
 					}
@@ -109,15 +109,15 @@ public class Touch : MonoBehaviour {
 					isTouchPosition = true;
 				}
 				if (acumTimeHold >= holdTime) {
-					yoda.GetComponent<MeshRenderer> ().enabled = false;
+					yoda.GetComponent<SpriteRenderer> ().enabled = false;
 					if (yodaRotation == null) {
-						yodaRotation = Instantiate (modelYodaRotation, new Vector3 (touchPosition.x, 0.01666667f, touchPosition.z), Quaternion.identity, yoda.transform);
+						yodaRotation = Instantiate (modelYodaRotation, new Vector3 (touchPosition.x, 0.01666667f, touchPosition.z), yoda.transform.rotation);
 					}
 					acumTimeKnife += Time.deltaTime;
 					if (acumTimeKnife >= knifeTime) {
 						if (yoda.GetComponent <Stamine> ().chekStaminaRotation ()) {
 							yoda.GetComponent <Stamine> ().decreaseStaminaRotation ();
-							Collider[] hitColliders = Physics.OverlapSphere (touchPosition, 2.0f);
+							Collider[] hitColliders = Physics.OverlapSphere (touchPosition, 1.4f);
 							for (int i = 0; i < hitColliders.Length; i++) {
 								if (hitColliders [i].transform.gameObject.tag.Equals ("Enemy")) {
 									knifes.Add (Instantiate (modelKnife, new Vector3 (touchPosition.x, yoda.transform.position.y + 0.3f, touchPosition.z), Quaternion.identity));
@@ -126,7 +126,7 @@ public class Touch : MonoBehaviour {
 							}
 						} else {
 							mouseHold = false;
-							yoda.GetComponent<MeshRenderer> ().enabled = true;
+							yoda.GetComponent<SpriteRenderer> ().enabled = true;
 							Destroy (yodaRotation);
 						}
 						acumTimeKnife = 0;
@@ -148,8 +148,15 @@ public class Touch : MonoBehaviour {
 						knifes.RemoveAt (i);
 						knifesTargets.RemoveAt (i);
 					}else{
-						knifes [i].transform.LookAt (new Vector3 (knifesTargets [i].transform.position.x, knifesTargets [i].transform.position.y + 0.3f, knifesTargets [i].transform.position.z));
-						knifes [i].transform.position += new Vector3 (knifes [i].transform.forward.x, 0, knifes [i].transform.forward.z) * Time.deltaTime * velocityKnife;
+						Vector3 dir = knifesTargets[i].transform.position - knifes[i].transform.position;
+						float angle = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg;
+						knifes[i].transform.rotation = Quaternion.AngleAxis(angle, new Vector3(0,0,1));
+						knifes[i].transform.rotation = Quaternion.Euler(90.0F, knifes[i].transform.rotation.eulerAngles.y, knifes[i].transform.rotation.eulerAngles.z+90);
+
+						knifes [i].transform.position = Vector3.MoveTowards (knifes [i].transform.position, knifesTargets [i].transform.position, Time.deltaTime * velocityKnife);
+
+						//knifes [i].transform.LookAt (new Vector3 (knifesTargets [i].transform.position.x, knifesTargets [i].transform.position.y + 0.3f, knifesTargets [i].transform.position.z));
+						//knifes [i].transform.position += new Vector3 (1, 0, 1) * Time.deltaTime * velocityKnife;
 					}
 				}
 			}

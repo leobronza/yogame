@@ -8,7 +8,7 @@ public class GameOver : MonoBehaviour {
 	private GameObject[] targets;
 
 	void Start () {
-		gameOverCanvas = GameObject.FindGameObjectWithTag ("GameOverPanel");
+		//gameOverCanvas = GameObject.FindGameObjectWithTag ("GameOverPanel");
 	}
 
 	void Update () {
