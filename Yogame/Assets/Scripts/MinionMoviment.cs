@@ -104,7 +104,7 @@ public class MinionMoviment : MonoBehaviour {
 						rigidBody.mass = 100;
 						rigidBody.constraints = previousConstraints;
 					} else {
-						timestamp = Time.time + 1.0f;
+						timestamp = Time.time;
 						this.transform.LookAt (target.transform);
 						rigidBody.MovePosition (this.transform.position + new Vector3 (this.transform.forward.x, 0, this.transform.forward.z) * Time.deltaTime * moveSpeed);
 					}

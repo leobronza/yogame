@@ -8,6 +8,15 @@ public class MinionHealth : MonoBehaviour {
 	public float cur_Health = 0f;
 	public GameObject healthBar;
 
+
+	void OnTriggerEnter(Collider other) {
+		if (this.tag == "Enemy") {
+			Destroy (other.gameObject);
+			damage (25f, 1);
+		}
+	}
+
+
 	// Use this for initialization
 	void Start () {
 		cur_Health = max_Health;

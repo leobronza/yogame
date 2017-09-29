@@ -38,6 +38,7 @@ public class GameOver : MonoBehaviour {
 	}
 
 	public void restartGame(){
+		
 		gameOverCanvas.SetActive (false);
 
 		targets = GameObject.FindGameObjectsWithTag ("Ally");
@@ -60,6 +61,34 @@ public class GameOver : MonoBehaviour {
 
 		GameObject.FindGameObjectWithTag ("ScoreText").GetComponent<RectTransform>().localPosition = new Vector3 (0, 260, 0);
 
+		this.GetComponent<Touch> ().setZeroCost (false);//TODO retirar
+	}
+
+	public void restartGame2(){
+		
+		gameOverCanvas.SetActive (false);
+
+		targets = GameObject.FindGameObjectsWithTag ("Ally");
+		for (int i = 0; i < targets.Length; i++) {
+			if (!targets [i].name.Equals ("Nexus")) {
+				Destroy (targets [i]);
+			} else {
+				targets [i].GetComponent<NexusHealth> ().resetHealth ();
+			}
+		}
+		targets = GameObject.FindGameObjectsWithTag ("Enemy");
+		for (int i = 0; i < targets.Length; i++) {
+			Destroy (targets [i]);
+		}
+		this.GetComponent<ProgressionController> ().resetProgression ();
+		this.GetComponent<Score> ().resetScore ();
+		this.GetComponent<Touch> ().setPause (false);
+		GameObject.FindGameObjectWithTag ("Yoda").GetComponent<Stamine>().setPause (false);
+		GameObject.FindGameObjectWithTag ("Yoda").GetComponent<Stamine>().resetStamina();
+
+		GameObject.FindGameObjectWithTag ("ScoreText").GetComponent<RectTransform>().localPosition = new Vector3 (0, 260, 0);
+
+		this.GetComponent<Touch> ().setZeroCost (true); //TODO retirar
 	}
 
 	public void exitGame(){
