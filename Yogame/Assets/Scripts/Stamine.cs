@@ -18,7 +18,7 @@ public class Stamine : MonoBehaviour {
 	void Update () {
 		if (!pause) {
 			if (currentStamina < maximumStamina) {
-				currentStamina += 0.2f * Time.deltaTime;
+				currentStamina += 0.3f * Time.deltaTime;
 				updateStamina ();
 			}
 		}

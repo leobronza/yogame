@@ -30,6 +30,16 @@ public class GameOver : MonoBehaviour {
 			targets [i].GetComponent<MinionMoviment> ().setPause (true);
 		}
 
+		targets = GameObject.FindGameObjectsWithTag ("Hastad");
+		for (int i = 0; i < targets.Length; i++) {
+			targets [i].GetComponent<HastadMoviment> ().setPause (true);
+		}
+
+		targets = GameObject.FindGameObjectsWithTag ("Cagapelado");
+		for (int i = 0; i < targets.Length; i++) {
+			targets [i].GetComponent<CagapeladoMoviment> ().setPause (true);
+		}
+
 		GameObject.FindGameObjectWithTag ("Yoda").GetComponent<Stamine>().setPause (true);
 		this.GetComponent<Touch> ().setPause (true);
 
@@ -53,6 +63,17 @@ public class GameOver : MonoBehaviour {
 		for (int i = 0; i < targets.Length; i++) {
 			Destroy (targets [i]);
 		}
+
+		targets = GameObject.FindGameObjectsWithTag ("Hastad");
+		for (int i = 0; i < targets.Length; i++) {
+			Destroy (targets [i]);
+		}
+
+		targets = GameObject.FindGameObjectsWithTag ("Cagapelado");
+		for (int i = 0; i < targets.Length; i++) {
+			Destroy (targets [i]);
+		}
+
 		this.GetComponent<ProgressionController> ().resetProgression ();
 		this.GetComponent<Score> ().resetScore ();
 		this.GetComponent<Touch> ().setPause (false);
@@ -80,6 +101,17 @@ public class GameOver : MonoBehaviour {
 		for (int i = 0; i < targets.Length; i++) {
 			Destroy (targets [i]);
 		}
+
+		targets = GameObject.FindGameObjectsWithTag ("Hastad");
+		for (int i = 0; i < targets.Length; i++) {
+			Destroy (targets [i]);
+		}
+
+		targets = GameObject.FindGameObjectsWithTag ("Cagapelado");
+		for (int i = 0; i < targets.Length; i++) {
+			Destroy (targets [i]);
+		}
+
 		this.GetComponent<ProgressionController> ().resetProgression ();
 		this.GetComponent<Score> ().resetScore ();
 		this.GetComponent<Touch> ().setPause (false);

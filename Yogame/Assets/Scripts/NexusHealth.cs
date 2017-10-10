@@ -8,6 +8,14 @@ public class NexusHealth : MonoBehaviour {
 	public float maxHealth = 1000f;
 	public float curHealth = 0f;
 
+	void OnTriggerEnter(Collider other) {
+		if (other.gameObject.tag == "EnemyAttack") {
+			Destroy (other.gameObject);
+			damage (75f);
+		}
+	}
+
+
 	void Start () {
 		curHealth = maxHealth;
 	}

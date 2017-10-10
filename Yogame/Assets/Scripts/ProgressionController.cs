@@ -5,8 +5,8 @@ using UnityEngine;
 public class ProgressionController : MonoBehaviour {
 	
 	// Score
-	private int progressionScore = 60; 
-	private int progressionScoreLiberty = 90;
+	private int progressionScore = 50; 
+	//private int progressionScoreLiberty = 90;
 	private int nextScorePoint = 10;
 	private int previousScorePoint = 10;
 
@@ -63,20 +63,67 @@ public class ProgressionController : MonoBehaviour {
 	private int attackAllyInt = 1;
 	private int attackAllyIncrease = 0;
 
+	private GameObject specialEnemies;
+
+	// Hastad
+	private float scorePointHastad = 10; 
+
+	private float scorePointCagapelado = 10; 
+
+
+	private bool pauseHorda = false;
+	private float acumTimeHorda = 0;
+	private float TimeHordaWait = 4;
+
+
+
 	void Start () {
 		enemyTeam = GameObject.FindGameObjectWithTag ("EnemyTeam");
 		allyTeam = GameObject.FindGameObjectWithTag ("AllyTeam");
+		specialEnemies = GameObject.FindGameObjectWithTag ("SpecialEnemies");
 		resetProgression ();
 	}
 
+	void Update () {
+
+
+
+		if (pauseHorda &&  GameObject.FindGameObjectsWithTag ("Enemy").Length == 0) {
+			acumTimeHorda += Time.deltaTime;
+			if (acumTimeHorda >= TimeHordaWait) {
+				pauseHorda = false;
+				enemyTeam.GetComponent<Respawn> ().setPause (pauseHorda);
+				allyTeam.GetComponent<Respawn> ().setPause (pauseHorda);
+				specialEnemies.GetComponent<RespawnSpecial> ().setPause (pauseHorda);
+				acumTimeHorda = 0;
+			}
+		}
+	}
+
 	public void onMinionKilled(int score){
-		
+
+		//ESCALAR STAMINA !!!!!!!!!
+
 		// Score
 		if (score == nextScorePoint) {
 			// Score
 			previousScorePoint = score;
-			nextScorePoint = (int)Random.Range (nextScorePoint + progressionScore, nextScorePoint + progressionScoreLiberty);
+			nextScorePoint = nextScorePoint + progressionScore;//(int)Random.Range (nextScorePoint + progressionScore, nextScorePoint + progressionScoreLiberty);
 			print ("Next Score: " + nextScorePoint);
+
+			// Pause em point aleatorio
+			pauseHorda = true;
+			enemyTeam.GetComponent<Respawn>().setPause(pauseHorda);
+			allyTeam.GetComponent<Respawn> ().setPause (pauseHorda);
+			specialEnemies.GetComponent<RespawnSpecial>().setPause(pauseHorda);
+
+			//TODO Escalar especiais
+			scorePointHastad = Random.Range (previousScorePoint, nextScorePoint);
+			print ("Next point to hastad appear: "+ scorePointHastad); 
+
+			scorePointCagapelado = Random.Range (previousScorePoint, nextScorePoint);
+			print ("Next point to Cagapelado appear: "+ scorePointCagapelado); 
+
 
 			int ScoreStep = (nextScorePoint - previousScorePoint); 
 
@@ -113,11 +160,11 @@ public class ProgressionController : MonoBehaviour {
 		} 
 
 		// Enemy Amount
-		if(score == previousScorePoint + stepScoreAmountEnemy * amountEnemyInt && amountEnemyInt <= moveSpeedEnemyIncrease){
+		if(score == previousScorePoint + stepScoreAmountEnemy * amountEnemyInt && amountEnemyInt <= amountEnemyIncrease){
 			enemyTeam.GetComponent<Respawn> ().plusAmountMinions();
 			amountEnemies++;
 			amountEnemyInt++;
-			print ("Next Point to plus Enemy: " + previousScorePoint + stepScoreAmountEnemy * amountEnemyInt);
+			print ("Next Point to plus Enemy: " + (previousScorePoint + stepScoreAmountEnemy * amountEnemyInt));
 		}
 
 		// Move Speed Enemy
@@ -125,7 +172,7 @@ public class ProgressionController : MonoBehaviour {
 			enemyTeam.GetComponent<Respawn> ().plusMoveSpeed();
 			moveSpeedEnemies++;
 			moveSpeedEnemyInt++;
-			print ("Next Point to plus Enemy Move Speed: " + previousScorePoint + stepScoreMoveSpeedEnemy * moveSpeedEnemyInt );
+			print ("Next Point to plus Enemy Move Speed: " + (previousScorePoint + stepScoreMoveSpeedEnemy * moveSpeedEnemyInt) );
 		}
 
 		// Attack Enemy
@@ -133,7 +180,7 @@ public class ProgressionController : MonoBehaviour {
 			enemyTeam.GetComponent<Respawn> ().plusAttack();
 			attackEnemies++;
 			attackEnemyInt++;
-			print ("Next Point to plus Enemy Attack: "+ previousScorePoint + stepScoreAttackEnemy * attackEnemyInt );
+			print ("Next Point to plus Enemy Attack: "+ (previousScorePoint + stepScoreAttackEnemy * attackEnemyInt) );
 		}
 
 		// Enemy Ally
@@ -141,7 +188,7 @@ public class ProgressionController : MonoBehaviour {
 			allyTeam.GetComponent<Respawn> ().plusAmountMinions();
 			amountAllies++;
 			amountAllyInt++;
-			print ("Next Point to plus Ally: " + previousScorePoint + stepScoreAmountAlly * amountAllyInt);
+			print ("Next Point to plus Ally: " + (previousScorePoint + stepScoreAmountAlly * amountAllyInt));
 		}
 
 		// Move Speed Ally
@@ -149,7 +196,7 @@ public class ProgressionController : MonoBehaviour {
 			allyTeam.GetComponent<Respawn> ().plusMoveSpeed();
 			moveSpeedAllies++;
 			moveSpeedAllyInt++;
-			print ("Next Point to plus Ally Move Speed: " + previousScorePoint + stepScoreMoveSpeedAlly * moveSpeedAllyInt );
+			print ("Next Point to plus Ally Move Speed: " + (previousScorePoint + stepScoreMoveSpeedAlly * moveSpeedAllyInt) );
 		}
 
 		// Attack Ally
@@ -157,9 +204,17 @@ public class ProgressionController : MonoBehaviour {
 			allyTeam.GetComponent<Respawn> ().plusAttack();
 			attackAllies++;
 			attackAllyInt++;
-			print ("Next Point to plus Ally Attack: "+ previousScorePoint + stepScoreAttackAlly * attackAllyInt );
+			print ("Next Point to plus Ally Attack: "+ (previousScorePoint + stepScoreAttackAlly * attackAllyInt) );
 		}
 
+
+		if(score == (int)scorePointHastad){
+			specialEnemies.GetComponent<RespawnSpecial>().setAmountHastads(1);
+		}
+
+		if(score == (int)scorePointCagapelado){
+			specialEnemies.GetComponent<RespawnSpecial>().setAmountCagapelados(1);
+		}
 	}
 		
 	public void resetProgression(){

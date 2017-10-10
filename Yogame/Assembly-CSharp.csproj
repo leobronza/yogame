@@ -46,7 +46,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CagapeladoMoviment.cs" />
      <Compile Include="Assets\Scripts\GameOver.cs" />
+     <Compile Include="Assets\Scripts\HastadHealth.cs" />
+     <Compile Include="Assets\Scripts\HastadMoviment.cs" />
      <Compile Include="Assets\Scripts\MinionHealth.cs" />
      <Compile Include="Assets\Scripts\MinionHealthFix.cs" />
      <Compile Include="Assets\Scripts\MinionMoviment.cs" />
@@ -55,6 +58,7 @@
      <Compile Include="Assets\Scripts\RandomEdgePerTime.cs" />
      <Compile Include="Assets\Scripts\RandomPositionPerTime.cs" />
      <Compile Include="Assets\Scripts\Respawn.cs" />
+     <Compile Include="Assets\Scripts\RespawnSpecial.cs" />
      <Compile Include="Assets\Scripts\Score.cs" />
      <Compile Include="Assets\Scripts\Stamine.cs" />
      <Compile Include="Assets\Scripts\Touch.cs" />

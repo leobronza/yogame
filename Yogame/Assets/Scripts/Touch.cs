@@ -26,7 +26,7 @@ public class Touch : MonoBehaviour {
 	private float velocityKnife = 10f;
 	public GameObject modelYodaRotation;
 	private GameObject yodaRotation;
-	private bool zeroCost = true;
+	private bool zeroCost = false;
 
 	void Start () {
 		arrayKnife = new GameObject[5];
@@ -91,9 +91,9 @@ public class Touch : MonoBehaviour {
 						if (acumTimeKnife >= knifeTime) {
 							if (yoda.GetComponent <Stamine> ().chekStaminaRotation ()) {
 								yoda.GetComponent <Stamine> ().decreaseStaminaRotation ();
-								Collider[] hitColliders = Physics.OverlapSphere (touchPosition, 1.4f);
+								Collider[] hitColliders = Physics.OverlapSphere (touchPosition, 1.7f);
 								for (int i = 0; i < hitColliders.Length; i++) {
-									if (hitColliders [i].transform.gameObject.tag.Equals ("Enemy")) {
+									if (hitColliders [i].transform.gameObject.tag.Equals ("Enemy") || hitColliders [i].transform.gameObject.tag.Equals ("Hastad") || hitColliders [i].transform.gameObject.tag.Equals ("Cagapelado")) {
 
 										GameObject obj = Instantiate (modelKnife, new Vector3 (touchPosition.x, yoda.transform.position.y + 0.3f, touchPosition.z), Quaternion.identity);
 										Vector3 knifeDirection = hitColliders [i].transform.position;
@@ -154,7 +154,7 @@ public class Touch : MonoBehaviour {
 				//}                               
 			} else if (Input.GetMouseButtonDown (0)) {
 				mouseHold = true;
-				velocityKnife = 3.5f;
+				velocityKnife = 2.5f;
 			}
 			if (mouseHold) {
 				acumTimeHold += Time.deltaTime;
@@ -173,9 +173,9 @@ public class Touch : MonoBehaviour {
 					if (acumTimeKnife >= knifeTime) {
 						if (yoda.GetComponent <Stamine> ().chekStaminaRotation ()) {
 							yoda.GetComponent <Stamine> ().decreaseStaminaRotation ();
-							Collider[] hitColliders = Physics.OverlapSphere (touchPosition, 1.4f);
+							Collider[] hitColliders = Physics.OverlapSphere (touchPosition, 1.7f);
 							for (int i = 0; i < hitColliders.Length; i++) {
-								if (hitColliders [i].transform.gameObject.tag.Equals ("Enemy")) {
+								if (hitColliders [i].transform.gameObject.tag.Equals ("Enemy") || hitColliders [i].transform.gameObject.tag.Equals ("Hastad") || hitColliders [i].transform.gameObject.tag.Equals ("Cagapelado") ) {
 
 									GameObject obj = Instantiate (modelKnife, new Vector3 (touchPosition.x, yoda.transform.position.y + 0.3f, touchPosition.z), Quaternion.identity);
 									Vector3 knifeDirection = hitColliders [i].transform.position;
@@ -222,6 +222,7 @@ public class Touch : MonoBehaviour {
 
 					//knifes [i].transform.position = Vector3.MoveTowards (knifes [i].transform.position, knifesDirection [i], Time.deltaTime * velocityKnife);
 					knifes [i].transform.position = knifes [i].transform.position + new Vector3 (knifesDirection [i].x, 0,knifesDirection [i].z) * Time.deltaTime * velocityKnife;
+					//knifes [i].transform.Rotate (0, 0, Time.deltaTime * 180);
 					//knifes [i].transform.LookAt (new Vector3 (knifesTargets [i].transform.position.x, knifesTargets [i].transform.position.y + 0.3f, knifesTargets [i].transform.position.z));
 					//knifes [i].transform.position += new Vector3 (1, 0, 1) * Time.deltaTime * velocityKnife;
 					//}

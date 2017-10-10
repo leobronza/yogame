@@ -10,7 +10,7 @@ public class MinionHealth : MonoBehaviour {
 
 
 	void OnTriggerEnter(Collider other) {
-		if (this.tag == "Enemy") {
+		if (this.tag == "Enemy" && other.gameObject.tag == "Attack" ) {
 			Destroy (other.gameObject);
 			damage (25f, 1);
 		}

@@ -11,8 +11,10 @@ public class Respawn : MonoBehaviour {
 	private float moveSpeed = 1.0f;
 	private Vector3 minionDestination;
 	private float attack;
+	private bool pause =  false;
 
 	void Start () {
+		
 		minions = new List<GameObject>();
 		for(int i = 0 ; i < (int)amountMinions ;i ++){
 			minions.Add (null);
@@ -27,26 +29,27 @@ public class Respawn : MonoBehaviour {
 	}
 
 	void Update () {
-		for (int i = 0; i < (int)amountMinions; i++) {
-			if (i >= minions.Count) {
+		if (!pause) {
+			for (int i = 0; i < (int)amountMinions; i++) {
+				if (i >= minions.Count) {
 					minionDestination = new RandomPositionPerTeam ().getRandomPositionPerTeam (team, 0.5F, "BackGround", 0.02F);
-				if (!Physics.CheckSphere (minionDestination, 0.49f)) {
-					minions.Insert(i, Instantiate (modelMinion, minionDestination, Quaternion.identity, this.transform));
-					//enemies [i].transform.LookAt (new Vector3 (0f, 0.02f, 0f));
-					minions[i].GetComponent<MinionMoviment>().setMoveSpeed(moveSpeed);
-					minions[i].GetComponent<MinionMoviment>().setAttack(attack);
-				}
-			} 
-			else if (minions [i] == null) {
-				minions.Add (null);
-				minionDestination = new RandomPositionPerTeam ().getRandomPositionPerTeam (team, 0.5F, "BackGround", 0.02F);
-				if (!Physics.CheckSphere (minionDestination, 0.49f)) {
-					minions [i] = Instantiate (modelMinion, minionDestination, Quaternion.identity, this.transform);
-					//enemies [i].transform.LookAt (new Vector3 (0f, 0.02f, 0f));
-					minions[i].GetComponent<MinionMoviment>().setMoveSpeed(moveSpeed);
-					minions[i].GetComponent<MinionMoviment>().setAttack(attack);
-				}
+					if (!Physics.CheckSphere (minionDestination, 0.49f)) {
+						minions.Insert (i, Instantiate (modelMinion, minionDestination, Quaternion.identity, this.transform));
+						//enemies [i].transform.LookAt (new Vector3 (0f, 0.02f, 0f));
+						minions [i].GetComponent<MinionMoviment> ().setMoveSpeed (moveSpeed);
+						minions [i].GetComponent<MinionMoviment> ().setAttack (attack);
+					}
+				} else if (minions [i] == null) {
+					minions.Add (null);
+					minionDestination = new RandomPositionPerTeam ().getRandomPositionPerTeam (team, 0.5F, "BackGround", 0.02F);
+					if (!Physics.CheckSphere (minionDestination, 0.49f)) {
+						minions [i] = Instantiate (modelMinion, minionDestination, Quaternion.identity, this.transform);
+						//enemies [i].transform.LookAt (new Vector3 (0f, 0.02f, 0f));
+						minions [i].GetComponent<MinionMoviment> ().setMoveSpeed (moveSpeed);
+						minions [i].GetComponent<MinionMoviment> ().setAttack (attack);
+					}
 
+				}
 			}
 		}
 	}
@@ -62,7 +65,7 @@ public class Respawn : MonoBehaviour {
 
 	// Move Speed
 	public void plusMoveSpeed(){
-		this.moveSpeed += 0.1F;
+		this.moveSpeed += 0.05f;
 	}
 
 	public void setMoveSpeed(float moveSpeed){
@@ -78,4 +81,7 @@ public class Respawn : MonoBehaviour {
 		this.attack = attack;
 	}
 
+	public void setPause(bool pause){
+		this.pause = pause;
+	}
 }
