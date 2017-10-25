@@ -93,7 +93,7 @@ public class Touch : MonoBehaviour {
 								yoda.GetComponent <Stamine> ().decreaseStaminaRotation ();
 								Collider[] hitColliders = Physics.OverlapSphere (touchPosition, 1.7f);
 								for (int i = 0; i < hitColliders.Length; i++) {
-									if (hitColliders [i].transform.gameObject.tag.Equals ("Enemy") || hitColliders [i].transform.gameObject.tag.Equals ("Hastad") || hitColliders [i].transform.gameObject.tag.Equals ("Cagapelado")) {
+									if (hitColliders [i].transform.gameObject.tag.Equals ("Enemy") || hitColliders [i].transform.gameObject.tag.Equals ("Hastad") || hitColliders [i].transform.gameObject.tag.Equals ("Cagapelado") || hitColliders [i].transform.gameObject.tag.Equals ("Chupinga")) {
 
 										GameObject obj = Instantiate (modelKnife, new Vector3 (touchPosition.x, yoda.transform.position.y + 0.3f, touchPosition.z), Quaternion.identity);
 										Vector3 knifeDirection = hitColliders [i].transform.position;
@@ -175,7 +175,7 @@ public class Touch : MonoBehaviour {
 							yoda.GetComponent <Stamine> ().decreaseStaminaRotation ();
 							Collider[] hitColliders = Physics.OverlapSphere (touchPosition, 1.7f);
 							for (int i = 0; i < hitColliders.Length; i++) {
-								if (hitColliders [i].transform.gameObject.tag.Equals ("Enemy") || hitColliders [i].transform.gameObject.tag.Equals ("Hastad") || hitColliders [i].transform.gameObject.tag.Equals ("Cagapelado") ) {
+								if (hitColliders [i].transform.gameObject.tag.Equals ("Enemy") || hitColliders [i].transform.gameObject.tag.Equals ("Hastad") || hitColliders [i].transform.gameObject.tag.Equals ("Cagapelado") || hitColliders [i].transform.gameObject.tag.Equals ("Chupinga")) {
 
 									GameObject obj = Instantiate (modelKnife, new Vector3 (touchPosition.x, yoda.transform.position.y + 0.3f, touchPosition.z), Quaternion.identity);
 									Vector3 knifeDirection = hitColliders [i].transform.position;

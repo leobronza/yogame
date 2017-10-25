@@ -56,7 +56,7 @@ public class Respawn : MonoBehaviour {
 
 	// Amount
 	public void plusAmountMinions(){
-		this.amountMinions += 0.1f;
+		this.amountMinions += 0.2f;
 	}
 
 	public void setAmountMinions(float amountMinions){

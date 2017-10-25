@@ -40,6 +40,7 @@ public class GameOver : MonoBehaviour {
 			targets [i].GetComponent<CagapeladoMoviment> ().setPause (true);
 		}
 
+
 		GameObject.FindGameObjectWithTag ("Yoda").GetComponent<Stamine>().setPause (true);
 		this.GetComponent<Touch> ().setPause (true);
 
@@ -108,6 +109,26 @@ public class GameOver : MonoBehaviour {
 		}
 
 		targets = GameObject.FindGameObjectsWithTag ("Cagapelado");
+		for (int i = 0; i < targets.Length; i++) {
+			Destroy (targets [i]);
+		}
+
+		targets = GameObject.FindGameObjectsWithTag ("EnemyAttack");
+		for (int i = 0; i < targets.Length; i++) {
+			Destroy (targets [i]);
+		}
+
+		targets = GameObject.FindGameObjectsWithTag ("Hastad");
+		for (int i = 0; i < targets.Length; i++) {
+			Destroy (targets [i]);
+		}
+
+		targets = GameObject.FindGameObjectsWithTag ("Cagapelado");
+		for (int i = 0; i < targets.Length; i++) {
+			Destroy (targets [i]);
+		}
+
+		targets = GameObject.FindGameObjectsWithTag ("Chupinga");
 		for (int i = 0; i < targets.Length; i++) {
 			Destroy (targets [i]);
 		}

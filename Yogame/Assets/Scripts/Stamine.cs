@@ -6,7 +6,7 @@ public class Stamine : MonoBehaviour {
 	
 	public float maximumStamina = 1.0f;
 	public float currentStamina;
-	private float staminaToKnife = 0.1f;
+	private float staminaToKnife = 0.01f;
 	private float staminaToRotation = 0.25f;
 	public GameObject staminaBar;
 	public bool pause = false;
@@ -55,4 +55,7 @@ public class Stamine : MonoBehaviour {
 		updateStamina ();
 	}
 
+	public void setStaminaToKnife(float staminaToKnife){
+		this.staminaToKnife = staminaToKnife;
+	}
 }

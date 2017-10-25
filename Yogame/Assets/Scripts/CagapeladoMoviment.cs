@@ -12,12 +12,12 @@ public class CagapeladoMoviment : MonoBehaviour {
 	private Vector3 nexusDir;
 	private float distance = 0f;
 	private float timestamp = 0.0f;
-	private List<GameObject> toilets;
+	//private List<GameObject> toilets;
 	private GameObject toilet;
 
 	void Start () {
 		nexus = GameObject.Find("Nexus");
-		toilets = new List<GameObject>();
+		//toilets = new List<GameObject>();
 	}
 
 	void Update () {
@@ -32,9 +32,9 @@ public class CagapeladoMoviment : MonoBehaviour {
 			if (distance >= 0.8f) {
 
 				if (Time.time >= timestamp) {
-					toilet = Instantiate (modelToilet, new Vector3(this.transform.position.x + nexusDir.x, this.transform.position.y, this.transform.position.z + nexusDir.z), Quaternion.identity, this.transform);
+					toilet = Instantiate (modelToilet, new Vector3(this.transform.position.x + nexusDir.x, this.transform.position.y, this.transform.position.z + nexusDir.z), Quaternion.identity);
 					toilet.transform.rotation = Quaternion.Euler(90.0F, 0, 0);
-					toilets.Add (toilet);
+					//toilets.Add (toilet);
 					timestamp = Time.time + 3.0f;
 				}
 			} else {
@@ -44,15 +44,7 @@ public class CagapeladoMoviment : MonoBehaviour {
 			}
 
 
-		for (int i = 0; i < toilets.Count; i++) {
-			if (toilets [i] == null) {
-				toilets.RemoveAt (i);
-			} else {
-				toilets [i].transform.position = toilets[i].transform.position + new Vector3 (nexusDir.x/1.6f, 0, nexusDir.z/1.6f) * Time.deltaTime * 3.5f;
-				toilets [i].transform.Rotate(0,0,Time.deltaTime * 180);
-			}
 		
-		}
 
 
 		}

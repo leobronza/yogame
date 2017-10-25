@@ -5,63 +5,71 @@ using UnityEngine;
 public class ProgressionController : MonoBehaviour {
 	
 	// Score
-	private int progressionScore = 50; 
+	private int progressionScore = 40; 
 	//private int progressionScoreLiberty = 90;
 	private int nextScorePoint = 10;
 	private int previousScorePoint = 10;
 
+	private float fortune = 1;
+	private float weightFortune = 1;
 
 	private GameObject enemyTeam;
 
 	// Enemy Amount
-	private int progressionAmountEnemy = 1; 
-	private int progressionAmountEnemyLiberty = 2;
-	private int stepScoreAmountEnemy = 11; 
-	private int amountEnemies = 3;
+	private float progressionAmountEnemy = 3; 
+	private float progressionAmountEnemyLiberty = 4;
+	private float stepScoreAmountEnemy = 11; 
+	private float amountDivisionEnemies = 1;
 	private int amountEnemyInt = 1;
-	private int amountEnemyIncrease = 0;
+	private float amountDivisionEnemyIncrease = 0;
+	private float weightAmountEnemy = 1;
 
 	// Move Speed Enemy
-	private int progressionMoveSpeedEnemy = 1; 
-	private int progressionMoveSpeedEnemyLiberty = 2;
-	private int stepScoreMoveSpeedEnemy = 11;
-	private int moveSpeedEnemies = 1; // 1 = 0.05
+	private float progressionMoveSpeedEnemy = 1; 
+	private float progressionMoveSpeedEnemyLiberty = 2;
+	private float stepScoreMoveSpeedEnemy = 11;
+	private float moveSpeedDivisionEnemies = 1; // 1 = 0.05
 	private int moveSpeedEnemyInt = 1;
-	private int moveSpeedEnemyIncrease = 0;
+	private float moveSpeedDivisionEnemyIncrease = 0;
+	private float weightMoveSpeed = 1;
 
-	// Attack Ally
-	private int progressionAttackEnemy = 1; 
-	private int progressionAttackEnemyLiberty = 2;
-	private int stepScoreAttackEnemy = 11;
-	private int attackEnemies = 1; // 1 = 0.05 ??
+	// Attack Enemy
+	private float progressionAttackEnemy = 1; 
+	private float progressionAttackEnemyLiberty = 2;
+	private float stepScoreAttackEnemy = 11;
+	private float attackDivisionEnemies = 1; // 1 = 0.05 ??
 	private int attackEnemyInt = 1;
-	private int attackEnemyIncrease = 0;
+	private float attackDivisionEnemyIncrease = 0;
+	private float weightAttackEnemy = 1;
 
 	private GameObject allyTeam;
 
 	// Ally Amount
-	private int progressionAmountAlly = 0; 
-	private int progressionAmountAllyLiberty = 1;
-	private int stepScoreAmountAlly = 11; 
-	private int amountAllies = 1;
+	private float progressionAmountAlly = 0; 
+	private float progressionAmountAllyLiberty = 1;
+	private float stepScoreAmountAlly = 11; 
+	private float amountDivisionAllies = 1;
 	private int amountAllyInt = 1;
-	private int amountAllyIncrease = 0;
+	private float amountDivisionAllyIncrease = 0;
+	private float weightAmountAlly = 1;
 
 	// Move Speed Ally
-	private int progressionMoveSpeedAlly = 0; 
-	private int progressionMoveSpeedAllyLiberty = 1;
-	private int stepScoreMoveSpeedAlly = 11;
-	private int moveSpeedAllies = 1; // 1 = 0.05
+	private float progressionMoveSpeedAlly = 0; 
+	private float progressionMoveSpeedAllyLiberty = 1;
+	private float stepScoreMoveSpeedAlly = 11;
+	private float moveSpeedDivisionAllies = 1; // 1 = 0.05
 	private int moveSpeedAllyInt = 1;
-	private int moveSpeedAllyIncrease = 0;
+	private float moveSpeedDivisionAllyIncrease = 0;
+	private float weightMoveSpeedAlly = 1;
 
 	// Attack Ally
-	private int progressionAttackAlly = 0; 
-	private int progressionAttackAllyLiberty = 1;
-	private int stepScoreAttackAlly = 11;
-	private int attackAllies = 1; // 1 = 0.05 ??
+	private float progressionAttackAlly = 0; 
+	private float progressionAttackAllyLiberty = 1;
+	private float stepScoreAttackAlly = 11;
+	private float attackDivisionAllies = 1; // 1 = 0.05 ??
 	private int attackAllyInt = 1;
-	private int attackAllyIncrease = 0;
+	private float attackDivisionAllyIncrease = 0;
+	private float weightAttackAlly = 1;
 
 	private GameObject specialEnemies;
 
@@ -70,25 +78,24 @@ public class ProgressionController : MonoBehaviour {
 
 	private float scorePointCagapelado = 10; 
 
+	private float scorePointChupinga = 10; 
 
 	private bool pauseHorda = false;
 	private float acumTimeHorda = 0;
 	private float TimeHordaWait = 4;
 
-
+	public GameObject yoda;
 
 	void Start () {
 		enemyTeam = GameObject.FindGameObjectWithTag ("EnemyTeam");
 		allyTeam = GameObject.FindGameObjectWithTag ("AllyTeam");
 		specialEnemies = GameObject.FindGameObjectWithTag ("SpecialEnemies");
 		resetProgression ();
+		yoda = GameObject.FindGameObjectWithTag ("Yoda");
 	}
 
 	void Update () {
-
-
-
-		if (pauseHorda &&  GameObject.FindGameObjectsWithTag ("Enemy").Length == 0) {
+		if (pauseHorda &&  GameObject.FindGameObjectsWithTag ("Enemy").Length == 0 ) {// AND ESPECIAIS?
 			acumTimeHorda += Time.deltaTime;
 			if (acumTimeHorda >= TimeHordaWait) {
 				pauseHorda = false;
@@ -102,8 +109,10 @@ public class ProgressionController : MonoBehaviour {
 
 	public void onMinionKilled(int score){
 
-		//ESCALAR STAMINA !!!!!!!!!
+		//yoda.GetComponent <Stamine> ().setStaminaToKnife (score * 0.00012f);
 
+		//ESCALAR STAMINA !!!!!!!!!
+		specialEnemies.GetComponent<RespawnSpecial>().setAmountCagapelados(1);
 		// Score
 		if (score == nextScorePoint) {
 			// Score
@@ -111,7 +120,7 @@ public class ProgressionController : MonoBehaviour {
 			nextScorePoint = nextScorePoint + progressionScore;//(int)Random.Range (nextScorePoint + progressionScore, nextScorePoint + progressionScoreLiberty);
 			print ("Next Score: " + nextScorePoint);
 
-			// Pause em point aleatorio
+			// Pause em point aleatorio?
 			pauseHorda = true;
 			enemyTeam.GetComponent<Respawn>().setPause(pauseHorda);
 			allyTeam.GetComponent<Respawn> ().setPause (pauseHorda);
@@ -124,85 +133,101 @@ public class ProgressionController : MonoBehaviour {
 			scorePointCagapelado = Random.Range (previousScorePoint, nextScorePoint);
 			print ("Next point to Cagapelado appear: "+ scorePointCagapelado); 
 
+			scorePointChupinga = Random.Range (previousScorePoint, nextScorePoint);
+			print ("Next point to Chupinga appear: "+ scorePointChupinga); 
 
 			int ScoreStep = (nextScorePoint - previousScorePoint); 
 
 			// Enemy Amount
-			amountEnemyIncrease = Random.Range (amountEnemies + progressionAmountEnemy, amountEnemies +  progressionAmountEnemyLiberty) + 1 ;
-			stepScoreAmountEnemy = (int)ScoreStep / amountEnemyIncrease;
-			amountEnemyInt = 1;
+			amountDivisionEnemyIncrease = Random.Range (progressionAmountEnemy, progressionAmountEnemyLiberty);
+			stepScoreAmountEnemy = ScoreStep / amountDivisionEnemyIncrease + amountDivisionEnemies;
+			amountEnemyInt = 0;
+			fortune = fortune + (amountDivisionEnemyIncrease - progressionAmountEnemy) / (progressionAmountEnemyLiberty - progressionAmountEnemy);
+			weightFortune = weightFortune + weightAmountEnemy;
 
 			// Move Speed Enemy
-			moveSpeedEnemyIncrease = Random.Range (moveSpeedEnemies + progressionMoveSpeedEnemy, moveSpeedEnemies + progressionMoveSpeedEnemyLiberty) + 1;
-			stepScoreMoveSpeedEnemy = (int)ScoreStep / moveSpeedEnemyIncrease;
-			amountEnemyInt = 1;
+			moveSpeedDivisionEnemyIncrease = Random.Range (progressionMoveSpeedEnemy, progressionMoveSpeedEnemyLiberty);
+			stepScoreMoveSpeedEnemy = ScoreStep / moveSpeedDivisionEnemyIncrease + moveSpeedDivisionEnemies;
+			amountEnemyInt = 0;
+			fortune = fortune + (moveSpeedDivisionEnemyIncrease - progressionMoveSpeedEnemy) / (progressionMoveSpeedEnemyLiberty - progressionMoveSpeedEnemy);
+			weightFortune = weightFortune + weightMoveSpeed;
 
 			// Attack Enemy
-			attackEnemyIncrease = Random.Range (attackEnemies + progressionAttackEnemy, attackEnemies + progressionAttackEnemyLiberty) + 1;
-			stepScoreAttackEnemy = (int)ScoreStep / attackEnemyIncrease;
-			attackEnemyInt = 1;
+			attackDivisionEnemyIncrease = Random.Range (progressionAttackEnemy, progressionAttackEnemyLiberty);
+			stepScoreAttackEnemy = ScoreStep / attackDivisionEnemyIncrease + attackDivisionEnemies;
+			attackEnemyInt = 0;
+			fortune = fortune + (attackDivisionEnemyIncrease - progressionAttackEnemy) / (progressionAttackEnemyLiberty - progressionAttackEnemy);
+			weightFortune = weightFortune + weightAttackEnemy;
 
 			// Ally Amount
-			amountAllyIncrease = Random.Range (amountAllies + progressionAmountAlly, amountAllies +  progressionAmountAllyLiberty) + 1 ;
-			stepScoreAmountAlly = (int)ScoreStep / amountAllyIncrease;
-			amountAllyInt = 1;
+			amountDivisionAllyIncrease = Random.Range (progressionAmountAlly, progressionAmountAllyLiberty);
+			stepScoreAmountAlly = ScoreStep / amountDivisionAllyIncrease + amountDivisionAllies ;
+			amountAllyInt = 0;
+			fortune = fortune + (amountDivisionAllyIncrease - progressionAmountAlly) / (progressionAmountAllyLiberty - progressionAmountAlly);
+			weightFortune = weightFortune + weightAmountAlly;
 
 			// Move Speed Ally
-			moveSpeedAllyIncrease = Random.Range (moveSpeedAllies + progressionMoveSpeedAlly, moveSpeedAllies + progressionMoveSpeedAllyLiberty) + 1;
-			stepScoreMoveSpeedAlly = (int)ScoreStep / moveSpeedAllyIncrease;
-			amountAllyInt = 1;
+			moveSpeedDivisionAllyIncrease = Random.Range (progressionMoveSpeedAlly, progressionMoveSpeedAllyLiberty);
+			stepScoreMoveSpeedAlly = ScoreStep / moveSpeedDivisionAllyIncrease + moveSpeedDivisionAllies;
+			amountAllyInt = 0;
+			fortune = fortune + (moveSpeedDivisionAllyIncrease - progressionMoveSpeedAlly) / (progressionMoveSpeedAllyLiberty - progressionMoveSpeedAlly);
+			weightFortune = weightFortune + weightMoveSpeedAlly;
 
 			// Attack Ally
-			attackAllyIncrease = Random.Range (attackAllies + progressionAttackAlly, attackAllies + progressionAttackAllyLiberty) + 1;
-			stepScoreAttackAlly = (int)ScoreStep / attackAllyIncrease;
-			attackAllyInt = 1;
+			attackDivisionAllyIncrease = Random.Range (progressionAttackAlly, progressionAttackAllyLiberty);
+			stepScoreAttackAlly = ScoreStep / attackDivisionAllyIncrease + attackDivisionAllies;
+			attackAllyInt = 0;
+			fortune = fortune + (attackDivisionAllyIncrease - progressionAttackAlly) / (progressionAttackAllyLiberty - progressionAttackAlly);
+			weightFortune = weightFortune + weightAttackAlly;
 
+			fortune = fortune / weightFortune;
+			print ("Your fortune is: " + fortune);
 		} 
 
 		// Enemy Amount
-		if(score == previousScorePoint + stepScoreAmountEnemy * amountEnemyInt && amountEnemyInt <= amountEnemyIncrease){
+		if(score >= previousScorePoint + stepScoreAmountEnemy * amountEnemyInt && amountEnemyInt <= amountDivisionEnemyIncrease + amountDivisionEnemies){
 			enemyTeam.GetComponent<Respawn> ().plusAmountMinions();
-			amountEnemies++;
+			amountDivisionEnemies++;
 			amountEnemyInt++;
 			print ("Next Point to plus Enemy: " + (previousScorePoint + stepScoreAmountEnemy * amountEnemyInt));
 		}
 
 		// Move Speed Enemy
-		if(score == previousScorePoint + stepScoreMoveSpeedEnemy * moveSpeedEnemyInt  && moveSpeedEnemyInt <= moveSpeedEnemyIncrease ){
+		if(score == previousScorePoint + stepScoreMoveSpeedEnemy * moveSpeedEnemyInt  && moveSpeedEnemyInt <= moveSpeedDivisionEnemyIncrease + moveSpeedDivisionEnemies ){
 			enemyTeam.GetComponent<Respawn> ().plusMoveSpeed();
-			moveSpeedEnemies++;
+			moveSpeedDivisionEnemies++;
 			moveSpeedEnemyInt++;
 			print ("Next Point to plus Enemy Move Speed: " + (previousScorePoint + stepScoreMoveSpeedEnemy * moveSpeedEnemyInt) );
 		}
 
 		// Attack Enemy
-		if(score == previousScorePoint + stepScoreAttackEnemy * attackEnemyInt  && attackEnemyInt <= attackEnemyIncrease ){
+		if(score == previousScorePoint + stepScoreAttackEnemy * attackEnemyInt  && attackEnemyInt <= attackDivisionEnemyIncrease + attackDivisionEnemies ){
 			enemyTeam.GetComponent<Respawn> ().plusAttack();
-			attackEnemies++;
+			attackDivisionEnemies++;
 			attackEnemyInt++;
 			print ("Next Point to plus Enemy Attack: "+ (previousScorePoint + stepScoreAttackEnemy * attackEnemyInt) );
 		}
 
 		// Enemy Ally
-		if(score == previousScorePoint + stepScoreAmountAlly * amountAllyInt && amountAllyInt <= moveSpeedAllyIncrease){
+		if(score == previousScorePoint + stepScoreAmountAlly * amountAllyInt && amountAllyInt <= amountDivisionAllyIncrease + amountDivisionAllies){
 			allyTeam.GetComponent<Respawn> ().plusAmountMinions();
-			amountAllies++;
+			amountDivisionAllies++;
 			amountAllyInt++;
 			print ("Next Point to plus Ally: " + (previousScorePoint + stepScoreAmountAlly * amountAllyInt));
 		}
 
 		// Move Speed Ally
-		if(score == previousScorePoint + stepScoreMoveSpeedAlly * moveSpeedAllyInt  && moveSpeedAllyInt <= moveSpeedAllyIncrease ){
+		if(score == previousScorePoint + stepScoreMoveSpeedAlly * moveSpeedAllyInt  && moveSpeedAllyInt <= moveSpeedDivisionAllyIncrease + moveSpeedDivisionAllies ){
 			allyTeam.GetComponent<Respawn> ().plusMoveSpeed();
-			moveSpeedAllies++;
+			moveSpeedDivisionAllies++;
 			moveSpeedAllyInt++;
 			print ("Next Point to plus Ally Move Speed: " + (previousScorePoint + stepScoreMoveSpeedAlly * moveSpeedAllyInt) );
 		}
 
 		// Attack Ally
-		if(score == previousScorePoint + stepScoreAttackAlly * attackAllyInt  && attackAllyInt <= attackAllyIncrease ){
+		if(score == previousScorePoint + stepScoreAttackAlly * attackAllyInt  && attackAllyInt <= attackDivisionAllyIncrease + attackDivisionAllies ){
 			allyTeam.GetComponent<Respawn> ().plusAttack();
-			attackAllies++;
+			attackDivisionAllies++;
 			attackAllyInt++;
 			print ("Next Point to plus Ally Attack: "+ (previousScorePoint + stepScoreAttackAlly * attackAllyInt) );
 		}
@@ -215,6 +240,10 @@ public class ProgressionController : MonoBehaviour {
 		if(score == (int)scorePointCagapelado){
 			specialEnemies.GetComponent<RespawnSpecial>().setAmountCagapelados(1);
 		}
+
+		if(score == (int)scorePointChupinga){
+			specialEnemies.GetComponent<RespawnSpecial>().setAmountChupingas(1);
+		}
 	}
 		
 	public void resetProgression(){
@@ -224,15 +253,15 @@ public class ProgressionController : MonoBehaviour {
 		enemyTeam.GetComponent<Respawn>().setAmountMinions(3);
 		enemyTeam.GetComponent<Respawn> ().setMoveSpeed (1.0f);
 		enemyTeam.GetComponent<Respawn> ().setAttack (25.0f);
-		amountEnemies = 3;
-		moveSpeedEnemies = 1;
-		attackEnemies = 1;
+		amountDivisionEnemies = 1;
+		moveSpeedDivisionEnemies = 1;
+		attackDivisionEnemies = 1;
 
 		allyTeam.GetComponent<Respawn>().setAmountMinions(1);
 		allyTeam.GetComponent<Respawn> ().setMoveSpeed (1.0f);
 		allyTeam.GetComponent<Respawn> ().setAttack (25.0f);
-		amountAllies = 1;
-		moveSpeedAllies = 1;
-		attackAllies = 1;
+		amountDivisionAllies = 1;
+		moveSpeedDivisionAllies = 1;
+		attackDivisionAllies = 1;
 	}
 }

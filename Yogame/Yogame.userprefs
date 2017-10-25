@@ -1,20 +1,22 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HastadHealth.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameOver.cs">
     <Files>
       <File FileName="Assets\Scripts\MinionHealth.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\MinionMoviment.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameOver.cs" Line="114" Column="3" />
+      <File FileName="Assets\Scripts\GameOver.cs" Line="144" Column="11" />
       <File FileName="Assets\Scripts\Stamine.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ProgressionController.cs" Line="25" Column="43" />
-      <File FileName="Assets\Scripts\Respawn.cs" Line="68" Column="27" />
-      <File FileName="Assets\Scripts\Touch.cs" Line="157" Column="22" />
+      <File FileName="Assets\Scripts\ProgressionController.cs" Line="115" Column="73" />
+      <File FileName="Assets\Scripts\Respawn.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Touch.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Score.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\HastadMoviment.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\HastadHealth.cs" Line="8" Column="31" />
-      <File FileName="Assets\Scripts\NexusHealth.cs" Line="14" Column="15" />
-      <File FileName="Assets\Scripts\RespawnSpecial.cs" Line="34" Column="8" />
-      <File FileName="Assets\Scripts\CagapeladoMoviment.cs" Line="52" Column="34" />
+      <File FileName="Assets\Scripts\HastadHealth.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\NexusHealth.cs" Line="23" Column="20" />
+      <File FileName="Assets\Scripts\RespawnSpecial.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CagapeladoMoviment.cs" Line="8" Column="27" />
+      <File FileName="Assets\Scripts\ChupingaMovment.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ToiletMoviment.cs" Line="19" Column="51" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

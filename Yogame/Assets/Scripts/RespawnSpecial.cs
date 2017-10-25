@@ -16,8 +16,15 @@ public class RespawnSpecial : MonoBehaviour {
 	public GameObject modelCagapelado;
 	public float amountCagapelados = 0; //TODO change to private
 	private float moveSpeedCagapelado = 2.0f;
-	private Vector3 CagapeladoDestination;
+	private Vector3 cagapeladoDestination;
 	private float attackCagapelado = 50f;
+
+	private GameObject chupingaNew;
+	public GameObject modelChupinga;
+	public float amountChupingas = 0; //TODO change to private
+	private float moveSpeedChupinga = 0.4f;
+	private Vector3 chupingaDestination;
+	private float attackChupinga = 50f;
 
 
 	private bool pause =  false;
@@ -37,15 +44,23 @@ public class RespawnSpecial : MonoBehaviour {
 			}
 		
 			for (int i = 0; i < (int)amountCagapelados; i++) {
-				CagapeladoDestination = new RandomPositionPerTeam ().getRandomPositionPerTeam (1, 0.5F, "BackGround", 0.02F);
-				if (!Physics.CheckSphere (CagapeladoDestination, 0.49f)) {
-					cagapeladoNew = Instantiate (modelCagapelado, CagapeladoDestination, Quaternion.identity, this.transform);
+				cagapeladoDestination = new RandomPositionPerTeam ().getRandomPositionPerTeam (1, 0.5F, "BackGround", 0.02F);
+				if (!Physics.CheckSphere (cagapeladoDestination, 0.49f)) {
+					cagapeladoNew = Instantiate (modelCagapelado, cagapeladoDestination, Quaternion.identity, this.transform);
 					//cagapeladoNew.GetComponent<CagapeladoMoviment> ().setMoveSpeed (moveSpeedCagapelado);
 					//cagapeladoNew.GetComponent<CagapeladoMoviment> ().setAttack (attackCagapelado);
 					amountCagapelados--;
 				}
 			}
 
+			for (int i = 0; i < (int)amountChupingas; i++) {
+				chupingaDestination = new RandomPositionPerTeam ().getRandomPositionPerTeam (1, 0.5F, "BackGround", 0.02F);
+				if (!Physics.CheckSphere (chupingaDestination, 0.49f)) {
+					chupingaNew = Instantiate (modelChupinga, chupingaDestination, Quaternion.identity, this.transform);
+					amountChupingas--;
+				}
+			}
+				
 		}
 	}
 
@@ -104,7 +119,34 @@ public class RespawnSpecial : MonoBehaviour {
 		this.attackCagapelado = attackCagapelado;
 	}
 
+	//--------------------------------------------------------------------------------
 
+	// Amount
+	public void plusAmountChupingas(){
+		this.amountChupingas += 0.1f;
+	}
+
+	public void setAmountChupingas(float amountChupingas){
+		this.amountChupingas = amountChupingas;
+	}
+
+	// Move Speed
+	public void plusMoveSpeedChupingas(){
+		this.moveSpeedChupinga += 0.1F;
+	}
+
+	public void setMoveSpeedChupinga(float moveSpeedChupinga){
+		this.moveSpeedChupinga = moveSpeedChupinga;
+	}
+
+	// Attack
+	public void plusAttackChupinga(){
+		this.attackChupinga += 1;
+	}
+
+	public void setAttackChupinga(float attackChupinga){
+		this.attackChupinga = attackChupinga;
+	}
 
 
 	public void setPause(bool pause){
